@@ -1,22 +1,18 @@
 import { motion } from "framer-motion";
+import { MovieType } from "./MovieCategory";
 
-type MovieCardProps = {
-  title: string;
-  rating: number;
-  year: number;
-  imgSrc: string;
-};
-
-export const MovieCard = (props: MovieCardProps) => {
+export const MovieCard = (props: MovieType) => {
+  const imgSrc = `https://image.tmdb.org/t/p/w500/${props.poster_path}`;
+  const year = new Date(`${props.release_date}`).getFullYear();
   return (
     <>
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="max-w-60 inline-block mr-4 mt-6 overflow-hidden"
+        className="max-w-60  flex-shrink-0 inline-block mr-4 mt-6 overflow-hidden"
       >
         <img
-          src={props.imgSrc}
+          src={imgSrc}
           alt="Movie Poster"
           className="w-full rounded-3xl object-cover"
         />
@@ -40,9 +36,9 @@ export const MovieCard = (props: MovieCardProps) => {
                   />
                 </svg>
               </span>
-              {props.rating}
+              {Number(props.vote_average).toFixed(1)}
             </p>
-            <p className="pl-4">{props.year}</p>
+            <p className="pl-4">{year}</p>
           </div>
         </div>
       </motion.div>

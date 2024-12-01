@@ -1,16 +1,26 @@
 import { motion } from "framer-motion";
 import { MovieCard } from "./MovieCard";
 
-type Movie = {
-  title: string;
-  year: number;
-  imgSrc: string;
-  rating: number;
+export type MovieType = {
+  adult?: boolean;
+  backdrop_path?: string;
+  genre_ids?: number[];
+  id?: number;
+  original_language?: string;
+  original_title?: string;
+  overview?: string;
+  popularity?: number;
+  poster_path?: string;
+  release_date?: string;
+  title?: string;
+  video?: boolean;
+  vote_average?: number;
+  vote_count?: number;
 };
 
 type MovieCategoryProps = {
   name: string;
-  movies: Movie[];
+  movies: MovieType[];
 };
 
 const MovieCategory = (props: MovieCategoryProps) => {
@@ -20,7 +30,7 @@ const MovieCategory = (props: MovieCategoryProps) => {
         Trending {props.name} Movies.
       </h2>
       <motion.div
-        className="overflow-x-auto whitespace-nowrap scrollbar-hide"
+        className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-4"
         initial="hidden"
         animate="visible"
         variants={{
@@ -35,7 +45,7 @@ const MovieCategory = (props: MovieCategoryProps) => {
         {props.movies.map((movie, index) => (
           <motion.div
             key={index}
-            className="inline-block mr-4"
+            className="inline-block"
             variants={{
               hidden: { opacity: 0, x: 50 },
               visible: { opacity: 1, x: 0 },
@@ -44,9 +54,9 @@ const MovieCategory = (props: MovieCategoryProps) => {
           >
             <MovieCard
               title={movie.title}
-              year={movie.year}
-              imgSrc={movie.imgSrc}
-              rating={movie.rating}
+              release_date={movie.release_date}
+              poster_path={movie.poster_path}
+              vote_average={movie.vote_average}
             />
           </motion.div>
         ))}
