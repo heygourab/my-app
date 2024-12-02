@@ -3,21 +3,28 @@ import { useEffect } from "react";
 import { motion, stagger, useAnimate } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export const TextGenerateEffect = ({
-  words,
-  className,
-  filter = true,
-  duration = 0.5,
-  fontSize,
-}: {
+interface TextGenerateEffectProps {
   words: string;
   className?: string;
+  containerClassName?: string;
+  textClassName?: string;
   filter?: boolean;
   duration?: number;
   fontSize?: string;
-}) => {
+}
+
+export const TextGenerateEffect = ({
+  words,
+  className,
+  containerClassName,
+  textClassName,
+  filter = true,
+  duration = 0.5,
+  fontSize,
+}: TextGenerateEffectProps) => {
   const [scope, animate] = useAnimate();
   const wordsArray = words.split(" ");
+
   useEffect(() => {
     animate(
       "span",
@@ -26,11 +33,11 @@ export const TextGenerateEffect = ({
         filter: filter ? "blur(0px)" : "none",
       },
       {
-        duration: duration ? duration : 1,
+        duration: duration,
         delay: stagger(0.2),
       }
     );
-  }, [scope.current]);
+  }, [scope.current, animate, duration, filter]);
 
   const renderWords = () => {
     return (
@@ -39,7 +46,10 @@ export const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className="dark:text-white text-white opacity-0"
+              className={cn(
+                "dark:text-white text-white opacity-0",
+                textClassName
+              )}
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}
@@ -54,13 +64,28 @@ export const TextGenerateEffect = ({
 
   return (
     <div className={cn("font-bold", className)}>
-      <div className="mt-4">
+      <div className={cn("mt-4", containerClassName)}>
         <div
           className={cn(
             "dark:text-white text-black leading-snug text-2xl tracking-wide",
-            fontSize && `text-${fontSize}` // Add Tailwind text size class dynamically
+            // Dynamically add text size class if it's a standard Tailwind size
+            fontSize &&
+              /^(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)$/.test(
+                fontSize
+              )
+              ? `text-${fontSize}`
+              : "",
+            textClassName
           )}
-          style={!/^text-\d+/.test(fontSize || "") ? { fontSize } : undefined} // Inline style for custom font sizes
+          // Use inline style for custom font sizes not in Tailwind's predefined sizes
+          style={
+            fontSize &&
+            !/^(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)$/.test(
+              fontSize
+            )
+              ? { fontSize }
+              : undefined
+          }
         >
           {renderWords()}
         </div>

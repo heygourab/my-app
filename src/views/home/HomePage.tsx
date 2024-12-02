@@ -127,10 +127,10 @@ export const HomePage: React.FC = () => {
     "Discover the latest and greatest movies across various genres — ";
 
   return (
-    // Make the container scrollable with overflow-y-auto
     <AuroraBackground className="bg-slate-950 h-screen overflow-y-auto">
       <div className="relative px-6 flex flex-col min-h-full w-full items-start">
         <div className="w-full sticky pt-4 top-0 z-10">
+          {/* search bar */}
           <PlaceholdersAndVanishInput
             placeholders={placeHolderTexts}
             onChange={handleChange}
@@ -140,12 +140,8 @@ export const HomePage: React.FC = () => {
 
         <Hero newRelMovie={newMovie} />
 
-        <div className="w-full mt-6 flex-grow">
-          <TextGenerateEffect
-            words={words}
-            className="font-semibold"
-            fontSize="3xl"
-          />
+        <div className="w-full mt-12 flex-grow">
+          <TextGenerateEffect words={words} className="font-semibold" />
           <div>
             <div className="w-full mt-4 overflow-x-auto whitespace-nowrap scrollbar-hide mb-4 top-20 z-10 ">
               <div className="inline-flex gap-4">

@@ -9,7 +9,7 @@ export const MovieCard = (props: MovieType) => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="w-40  flex-shrink-0 inline-block mr-6 mt-6 overflow-hidden"
+        className="w-44 flex-shrink-0 inline-block mr-6 mt-6 overflow-hidden"
       >
         <img
           src={imgSrc}

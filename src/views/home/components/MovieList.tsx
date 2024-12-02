@@ -10,9 +10,8 @@ type MovieCategoryProps = {
 
 const MovieList = (props: MovieCategoryProps) => {
   return (
-    <div className="">
+    <div className="mt-8">
       <h2 className="flex items-end gap-4 font-normal text-white ">
-        {/* ICON */}
         <span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +31,7 @@ const MovieList = (props: MovieCategoryProps) => {
 
         {
           <TextGenerateEffect
-            words={`Trending ${props.name} movies.`}
+            words={`Trending ${props.name} movies`}
             className="font-normal"
             fontSize="lg"
           />
