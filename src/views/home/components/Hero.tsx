@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { MovieType } from "types";
-import { AspectRatio } from "../../../components/ui/aspect-ratio";
-import { Button } from "../../../components/ui/button";
-import { TextGenerateEffect } from "../../../components/ui/text-generate-effect";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Button } from "@/components/ui/button";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+
+import { genres } from "@/data/movieGenereData.json";
 
 export const Hero = ({ movies }: { movies: MovieType[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,7 +23,7 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
       <AspectRatio ratio={19 / 6} className="overflow-hidden rounded-3xl">
         {movies.map((movie, index) => (
           <div
-            key={movie.id}
+            key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ${
               index === currentIndex ? "opacity-100" : "opacity-0"
             }`}
@@ -30,22 +33,40 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
               alt={`${movie.title} Poster`}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end">
-              <div className="p-4">
-                <h1 className="text-6xl md:text-8xl font-bold text-neutral-100">
+            <div className="absolute p-4 inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-between">
+              <HoverBorderGradient
+                as="button"
+                className="text-white bg-transparent flex gap-2 items-center space-x-2"
+              >
+                🔥
+                <span>Latest</span>
+              </HoverBorderGradient>
+              <div>
+                <h1 className="text-5xl md:text-6xl font-bold text-neutral-100">
                   {movie.title}
                 </h1>
                 <div className="w-full  md:w-2/3">
                   <TextGenerateEffect
                     words={movie.overview ?? ""}
-                    className="font-normal text-neutral-400"
-                    textClassName="text-base md:text-lg text-neutral-400 text-pretty"
+                    className="font-normal "
+                    textClassName="text-base md:text-lg text-neutral-300 text-pretty"
                   />
+                </div>
+
+                <div className="flex mt-6 gap-2 w-full">
+                  {movie.genre_ids?.map((id) => (
+                    <div
+                      key={id} // Using the unique genre ID as the key
+                      className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs backdrop-blur"
+                    >
+                      {genres.find((genre) => genre.id === id)?.name}
+                    </div>
+                  ))}
                 </div>
 
                 <div className="mt-4">
                   <Button
-                    className="flex items-center gap-2  p-6 rounded-full text-neutral-950 bg-neutral-100"
+                    className="flex items-center gap-2 p-6 rounded-full text-neutral-950 bg-neutral-100"
                     onClick={() => console.log("clicked")}
                   >
                     <svg
@@ -55,9 +76,9 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
                       className="size-6"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm14.024-.983a1.125 1.125 0 0 1 0 1.966l-5.603 3.113A1.125 1.125 0 0 1 9 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113Z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       />
                     </svg>
                     Watch Trailer
@@ -72,7 +93,7 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
         {movies.map((_, index) => (
           <button
             key={index}
-            className={` rounded-full ${
+            className={`rounded-full ${
               index === currentIndex ? "bg-white" : "bg-white/50"
             } ${index === currentIndex ? "w-4" : "w-2"} h-2`}
             onClick={() => setCurrentIndex(index)}

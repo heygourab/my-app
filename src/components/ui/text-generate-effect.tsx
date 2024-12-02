@@ -37,7 +37,7 @@ export const TextGenerateEffect = ({
         delay: stagger(0.2),
       }
     );
-  }, [scope.current, animate, duration, filter]);
+  }, [animate, duration, filter]);
 
   const renderWords = () => {
     return (
@@ -67,7 +67,7 @@ export const TextGenerateEffect = ({
       <div className={cn("mt-4", containerClassName)}>
         <div
           className={cn(
-            "dark:text-white text-black leading-snug text-2xl tracking-wide",
+            "dark:text-white text-black leading-snug text-4xl tracking-wide",
             // Dynamically add text size class if it's a standard Tailwind size
             fontSize &&
               /^(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)$/.test(

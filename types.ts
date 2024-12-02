@@ -15,6 +15,14 @@ export type MovieType = {
   vote_count?: number;
 };
 
+export type TVShow = {
+  id: number;
+  name: string;
+  poster_path: string;
+  vote_average: number;
+  first_air_date: string;
+};
+
 export type Genres = {
   id: number;
   name: string;

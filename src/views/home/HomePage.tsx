@@ -1,16 +1,18 @@
 import React, { useMemo, useState } from "react";
-import { useMovies } from "../../hooks/useMovie";
-import { useLatestMovies } from "../../hooks/useLatestMovies";
-import { AuroraBackground } from "../../components/ui/aurora-background";
-import { PlaceholdersAndVanishInput } from "../../components/ui/placeholders-and-vanish-input";
-import { genres } from "../../data/movieGenereData.json";
+import { useMovies } from "@/hooks/useMovie";
+import { useLatestMovies } from "@/hooks/useLatestMovies";
+import { AuroraBackground } from "@/components/ui/aurora-background";
+import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
+import { genres } from "@/data/movieGenereData.json";
 import { Hero } from "@/views/home/components/Hero";
 import { TendingSection } from "./components/TrendingSection";
-import { placeHolderTexts } from "../../constants";
-
+import { placeHolderTexts } from "@/constants";
+import { useTrendingTVShows } from "@/hooks/useTvShow";
+import { TvShowSection } from "./components/TvShowSection";
 export const HomePage: React.FC = () => {
   const [selectedGenreId, setSelectedGenreId] = useState<number>(28);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const { shows, loading } = useTrendingTVShows();
 
   const {
     movies,
@@ -56,11 +58,8 @@ export const HomePage: React.FC = () => {
     );
   }
 
-  const words =
-    "Discover the latest and greatest movies across various genres — ";
-
   return (
-    <AuroraBackground className="bg-slate-950 h-screen overflow-y-auto">
+    <AuroraBackground className="bg-slate-950 h-screen overflow-y-auto antialiased">
       <div className="relative px-6 flex flex-col min-h-full w-full items-start">
         <div className="w-full sticky pt-4 top-0 z-10">
           <PlaceholdersAndVanishInput
@@ -69,11 +68,10 @@ export const HomePage: React.FC = () => {
             onSubmit={onSubmit}
           />
         </div>
-
+        {/* Hero Section */}
         <Hero movies={newMovies} />
-
+        {/* TendingSection */}
         <TendingSection
-          words={words}
           genres={genres}
           movies={movies}
           selectedGenreId={selectedGenreId}
@@ -81,6 +79,9 @@ export const HomePage: React.FC = () => {
           loading={moviesLoading || newMoviesLoading}
           selectedGenre={selectedGenre}
         />
+
+        {/* Movies Section */}
+        <TvShowSection shows={shows} loading={loading} />
       </div>
     </AuroraBackground>
   );
