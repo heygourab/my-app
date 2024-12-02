@@ -31,7 +31,7 @@ const MovieList = (props: MovieCategoryProps) => {
 
         {
           <TextGenerateEffect
-            words={`Trending ${props.name} movies`}
+            words={`Trending ${props.name} Movies`}
             className="font-normal"
             fontSize="lg"
           />
