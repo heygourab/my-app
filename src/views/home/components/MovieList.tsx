@@ -1,33 +1,42 @@
 import { motion } from "framer-motion";
 import { MovieCard } from "./MovieCard";
-
-export type MovieType = {
-  adult?: boolean;
-  backdrop_path?: string;
-  genre_ids?: number[];
-  id?: number;
-  original_language?: string;
-  original_title?: string;
-  overview?: string;
-  popularity?: number;
-  poster_path?: string;
-  release_date?: string;
-  title?: string;
-  video?: boolean;
-  vote_average?: number;
-  vote_count?: number;
-};
+import { TextGenerateEffect } from "../../../components/ui/text-generate-effect";
+import { MovieType } from "types";
 
 type MovieCategoryProps = {
   name: string;
   movies: MovieType[];
 };
 
-const MovieCategory = (props: MovieCategoryProps) => {
+const MovieList = (props: MovieCategoryProps) => {
   return (
-    <div className="mt-8">
-      <h2 className="text-3xl text-white font-medium ">
-        Trending {props.name} Movies.
+    <div className="">
+      <h2 className="flex items-end gap-4 font-normal text-white ">
+        {/* ICON */}
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="size-6 flex-shrink-0"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+            />
+          </svg>
+        </span>
+
+        {
+          <TextGenerateEffect
+            words={`Trending ${props.name} movies.`}
+            className="font-normal"
+            fontSize="lg"
+          />
+        }
       </h2>
       <motion.div
         className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-4"
@@ -65,4 +74,4 @@ const MovieCategory = (props: MovieCategoryProps) => {
   );
 };
 
-export default MovieCategory;
+export default MovieList;

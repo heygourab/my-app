@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MovieType } from "./MovieCategory";
+import { MovieType } from "types";
 
 export const MovieCard = (props: MovieType) => {
   const imgSrc = `https://image.tmdb.org/t/p/w500/${props.poster_path}`;
@@ -9,7 +9,7 @@ export const MovieCard = (props: MovieType) => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="max-w-60  flex-shrink-0 inline-block mr-4 mt-6 overflow-hidden"
+        className="w-40  flex-shrink-0 inline-block mr-6 mt-6 overflow-hidden"
       >
         <img
           src={imgSrc}
@@ -17,11 +17,11 @@ export const MovieCard = (props: MovieType) => {
           className="w-full rounded-3xl object-cover"
         />
         <div className="mt-4">
-          <h3 className="truncate text-lg capitalize text-white">
+          <h3 className="truncate text-sm capitalize text-white">
             {props.title}
           </h3>
           <div className="mt-1 flex items-center gap-x-4 divide-x divide-slate-700 text-slate-400">
-            <p className="flex items-center gap-x-1.5">
+            <p className="flex text-xs items-center gap-x-1.5">
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ export const MovieCard = (props: MovieType) => {
               </span>
               {Number(props.vote_average).toFixed(1)}
             </p>
-            <p className="pl-4">{year}</p>
+            <p className="pl-4 text-xs">{year}</p>
           </div>
         </div>
       </motion.div>
