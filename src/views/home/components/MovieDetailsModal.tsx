@@ -19,7 +19,7 @@ export const MovieDetailsModal = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed  inset-0 bg-black/40  bg-opacity-40 backdrop-blur-lg flex items-center justify-center z-50 p-8"
+      className="fixed  inset-0 bg-black/75  bg-opacity-40 backdrop-blur-lg flex items-center justify-center z-50 p-8"
     >
       <MotionButton
         className="absolute top-3 right-3"
