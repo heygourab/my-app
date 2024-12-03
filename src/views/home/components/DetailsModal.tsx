@@ -17,80 +17,70 @@ export const DetailsModal = ({
   tvShow?: TVShow;
   onClose: () => void;
 }) => {
-  // Ref for the scrollable container
   const scrollableRef = useRef<HTMLDivElement | null>(null);
 
   const handleScrollDown = () => {
-    if (scrollableRef.current) {
-      scrollableRef.current.scrollBy({
-        top: 200, // Adjust as per your scroll requirement
-        behavior: "smooth",
-      });
-    }
+    scrollableRef.current?.scrollBy({ top: 200, behavior: "smooth" });
   };
+
+  const content = movie || tvShow;
+  const title = movie?.title ?? tvShow?.name ?? "Untitled";
+  const posterPath = content?.poster_path
+    ? `https://image.tmdb.org/t/p/w500/${content.poster_path}`
+    : "";
+  const releaseDate = movie?.release_date ?? tvShow?.first_air_date;
+  const voteAverage = content?.vote_average?.toFixed(1);
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 scroll-smooth bg-black/75 bg-opacity-40 backdrop-blur-lg flex items-center justify-center z-50 p-8"
+      className="fixed inset-0 bg-black/75 backdrop-blur-lg flex items-center justify-center z-50 p-8"
     >
-      <MotionButton
-        className="absolute top-4 right-4"
-        onClick={onClose}
-        children={<X />}
-      />
+      <MotionButton className="absolute top-4 right-4" onClick={onClose}>
+        <X />
+      </MotionButton>
 
-      <span className="text-white absolute bottom-28 -right-2 rotate-90 ">
+      <span className="text-white absolute bottom-28 -right-2 rotate-90">
         Scroll Down
       </span>
 
-      {/* Scroll Down Button */}
       <MotionButton
         onClick={handleScrollDown}
         className="absolute bottom-4 right-4"
-        children={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="size-6"
-          >
-            <path
-              fillRule="evenodd"
-              d="M12 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        }
-      />
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="size-6"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </MotionButton>
 
       <div
-        ref={scrollableRef} // Attach ref to this container
+        ref={scrollableRef}
         className="flex flex-col p-8 w-full h-full scrollbar-hide overflow-y-auto"
       >
-        {/* video */}
-        {/* (1.85 / 1) aspect-ratio */}
-        <PlayTrailer title={movie?.title ?? tvShow?.name ?? "Untitled"} />
+        <PlayTrailer title={title} />
 
-        {/* movie details */}
         <div className="flex space-x-4 mt-8">
-          <div className="flex gap-4">
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${
-                movie ? movie.poster_path : tvShow?.poster_path
-              }`}
-              alt=""
-              className="w-56 h-80 rounded-3xl object-cover"
-              loading="lazy"
-            />
-            <div className="flex flex-col w-1/2">
-              <h3 className="text-4xl text-neutral-200 font-bold tracking-wide">
-                {movie?.title ?? tvShow?.name}
-              </h3>
-              <div className="flex font-bold items-center gap-2 divide-x-2 divide-neutral-200 text-base mt-2">
-                {/* Rating Section */}
+          <img
+            src={posterPath}
+            alt={`${title} Poster`}
+            className="w-56 h-80 rounded-3xl object-cover"
+            loading="lazy"
+          />
+          <div className="flex flex-col w-1/2">
+            <h3 className="text-4xl text-neutral-200 font-bold">{title}</h3>
+            <div className="flex font-bold items-center gap-2 divide-x-2 divide-neutral-200 text-base mt-2">
+              {voteAverage && (
                 <div className="flex items-center gap-2 pr-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -104,33 +94,30 @@ export const DetailsModal = ({
                       clipRule="evenodd"
                     />
                   </svg>
-                  <p className="text-neutral-400">
-                    {movie
-                      ? movie.vote_average?.toFixed(1)
-                      : tvShow?.vote_average.toFixed(1)}{" "}
-                    / 10
-                  </p>
+                  <p className="text-neutral-400">{voteAverage} / 10</p>
                 </div>
-                {/* Release Date Section */}
-                <p className="pl-4 text-neutral-400">
-                  {movie ? movie.release_date : tvShow?.first_air_date}
-                </p>
-              </div>
-              <TextGenerateEffect
-                className="font-normal"
-                words={movie?.overview ?? ""}
-                textClassName="text-sm text-neutral-300"
-              />
-              <div className="flex mt-6 gap-2 w-full">
-                {movie?.genre_ids?.map((id) => (
-                  <div
-                    key={id}
-                    className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs backdrop-blur"
-                  >
-                    {genres.find((genre) => genre.id === id)?.name}
-                  </div>
-                ))}
-              </div>
+              )}
+              <p className="pl-4 text-neutral-400">{releaseDate}</p>
+            </div>
+            <TextGenerateEffect
+              className="font-normal"
+              words={movie?.overview ?? ""}
+              textClassName="text-sm text-neutral-300"
+            />
+            <div className="flex mt-6 gap-2 w-full">
+              {movie?.genre_ids?.map((id) => {
+                const genre = genres.find((g) => g.id === id);
+                return (
+                  genre && (
+                    <div
+                      key={id}
+                      className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs"
+                    >
+                      {genre.name}
+                    </div>
+                  )
+                );
+              })}
             </div>
           </div>
         </div>
