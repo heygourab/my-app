@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
-import MovieList from "./MovieList";
+import MovieList from "../../../components/MovieList";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { Genres, MovieType } from "types";
 

@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
-import { MovieCard } from "./MovieCard";
+import { MovieCard } from "../../../components/MovieCard";
 import { TVShow } from "types";
 
 export const TvShowSection = ({
@@ -11,7 +11,7 @@ export const TvShowSection = ({
 }) => (
   <section className="w-full mt-10 pb-4">
     <h2 className="text-4xl text-white font-semibold tracking-wide">
-      Trending Tv Shows of the Week
+      Trending Tv Shows of the Week —
     </h2>
     <div className="grid w-full mt-4 grid-cols-6">
       {!loading ? (

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { MovieCard } from "./MovieCard";
-import { TextGenerateEffect } from "../../../components/ui/text-generate-effect";
+import { TextGenerateEffect } from "./ui/text-generate-effect";
 import { MovieType } from "types";
 
 type MovieCategoryProps = {

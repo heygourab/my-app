@@ -26,7 +26,7 @@ export const MovieCard = memo(
         <img
           src={imgSrc}
           alt={`${title} poster`}
-          className="w-full rounded-3xl object-cover"
+          className="w-full h-64 rounded-3xl object-cover"
           loading="lazy"
         />
         <div className="mt-4">

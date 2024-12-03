@@ -102,29 +102,32 @@ export const HomePage: React.FC = () => {
           />
         </div>
         {/* Hero Section */}
-        <Hero movies={newMovies} />
-        {/* TendingSection */}
-        <TendingSection
-          genres={genres}
-          movies={movies}
-          selectedGenreId={selectedGenreId}
-          handleGenreClick={handleGenreClick}
-          loading={moviesLoading || newMoviesLoading}
-          selectedGenre={selectedGenre}
-        />
-        <TvShowSection shows={shows} loading={loading} />
+        <div className="w-full relative">
+          <Hero movies={newMovies} />
 
-        {/* api not working */}
-        <FilterByLanMovie
-          languages={languages}
-          filterMoviesByLanguage={filteredMovies}
-          selectedMovieLanguage={selectedMovieLanguage.iso_639_1}
-          handleLanClick={handleLanClick}
-          loading={moviesByLanguageLoading}
-          selectedLanguage={selectedMovieLanguage.iso_639_1}
-          error={moviesByLanguageError}
-          originalLanguage={selectedMovieLanguage.name}
-        />
+          {/* TendingSection */}
+          <TendingSection
+            genres={genres}
+            movies={movies}
+            selectedGenreId={selectedGenreId}
+            handleGenreClick={handleGenreClick}
+            loading={moviesLoading || newMoviesLoading}
+            selectedGenre={selectedGenre}
+          />
+          <TvShowSection shows={shows} loading={loading} />
+
+          {/* api not working */}
+          <FilterByLanMovie
+            languages={languages}
+            filterMoviesByLanguage={filteredMovies}
+            selectedMovieLanguage={selectedMovieLanguage.iso_639_1}
+            handleLanClick={handleLanClick}
+            loading={moviesByLanguageLoading}
+            selectedLanguage={selectedMovieLanguage.iso_639_1}
+            error={moviesByLanguageError}
+            originalLanguage={selectedMovieLanguage.name}
+          />
+        </div>
       </div>
     </AuroraBackground>
   );
