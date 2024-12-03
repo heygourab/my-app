@@ -13,8 +13,8 @@ import { TvShowSection } from "./components/TvShowSection";
 import { languages } from "@/data/languageData.json";
 import { FilterByLanMovie } from "./components/FilterByLanMovie";
 import { useFilteredMoviesByLanguage } from "@/hooks/useFilteredMoviesByLan";
-import { Language, MovieType } from "types";
-import { MovieDetailsModal } from "./components/MovieDetailsModal";
+import { Language, MovieType, TVShow } from "types";
+import { DetailsModal } from "./components/DetailsModal";
 
 export const HomePage: React.FC = () => {
   const [selectedGenreId, setSelectedGenreId] = useState<number>(28);
@@ -23,30 +23,26 @@ export const HomePage: React.FC = () => {
   const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [selectedTvShow, setSelectedTvShow] = useState<TVShow | null>(null);
+
   const [selectedMovieLanguage, setSelectedMovieLanguage] = useState<Language>({
     english_name: "English",
     iso_639_1: "en",
     name: "English",
   });
 
-  // fetch trending tv shows
-  const { shows, loading } = useTrendingTVShows();
-
-  // fetch trending movies based on selected genre
+  // Fetch data
+  const { shows, loading: tvLoading } = useTrendingTVShows();
   const {
     movies,
     loading: moviesLoading,
     error: moviesError,
   } = useMovies(selectedGenreId);
-
-  // fetch latest movies
   const {
     newMovies,
     loading: newMoviesLoading,
     error: newMoviesError,
   } = useLatestMovies();
-
-  // fetch trending movies based on selected language
   const {
     filteredMovies,
     loading: moviesByLanguageLoading,
@@ -54,29 +50,22 @@ export const HomePage: React.FC = () => {
   } = useFilteredMoviesByLanguage(selectedMovieLanguage?.iso_639_1);
 
   // Memoized genre selection
-
   const selectedGenre = useMemo(
     () =>
       genres.find((genre) => genre.id === selectedGenreId)?.name || "Action",
     [selectedGenreId]
   );
 
-  // Event handlers with improved type safety
-
-  const handleGenreClick = (id: number) => {
-    setSelectedGenreId(id);
-  };
+  // Event handlers
+  const handleGenreClick = (id: number) => setSelectedGenreId(id);
 
   const handleLanClick = (iso_639_1: string) => {
     const language = languages.find((lang) => lang.iso_639_1 === iso_639_1);
-    if (language) {
-      setSelectedMovieLanguage(language);
-    }
+    if (language) setSelectedMovieLanguage(language);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setSearchQuery(e.target.value);
-  };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -85,18 +74,23 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  // ! Modal handlers
-
   const handleMovieClick = (movie: MovieType) => {
     setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  const handleTvShowClick = (show: TVShow) => {
+    setSelectedTvShow(show);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedMovie(null);
+    setSelectedTvShow(null);
   };
 
+  // Error handling
   if (moviesError || newMoviesError) {
     return (
       <div className="flex items-center justify-center h-screen bg-slate-950 text-red-500">
@@ -117,10 +111,9 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Hero Section */}
-
         <Hero movies={newMovies} />
 
-        {/* TendingSection */}
+        {/* Trending Section */}
         <TendingSection
           genres={genres}
           movies={movies}
@@ -131,8 +124,14 @@ export const HomePage: React.FC = () => {
           onCardClick={handleMovieClick}
         />
 
-        <TvShowSection shows={shows} loading={loading} />
+        {/* TV Show Section */}
+        <TvShowSection
+          shows={shows}
+          loading={tvLoading}
+          onCardClick={handleTvShowClick}
+        />
 
+        {/* Filter By Language Section */}
         <FilterByLanMovie
           languages={languages}
           filterMoviesByLanguage={filteredMovies}
@@ -145,8 +144,20 @@ export const HomePage: React.FC = () => {
         />
       </div>
 
+      {/* Modal Section */}
       {isModalOpen && (
-        <MovieDetailsModal movie={selectedMovie} onClose={handleCloseModal} />
+        <>
+          {selectedMovie ? (
+            <DetailsModal movie={selectedMovie} onClose={handleCloseModal} />
+          ) : (
+            selectedTvShow && (
+              <DetailsModal
+                tvShow={selectedTvShow}
+                onClose={handleCloseModal}
+              />
+            )
+          )}
+        </>
       )}
     </AuroraBackground>
   );
