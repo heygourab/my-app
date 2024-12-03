@@ -42,6 +42,10 @@ export const DetailsModal = ({
         children={<X />}
       />
 
+      <span className="text-white absolute bottom-28 -right-2 rotate-90 ">
+        Scroll Down
+      </span>
+
       {/* Scroll Down Button */}
       <MotionButton
         onClick={handleScrollDown}
