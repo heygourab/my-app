@@ -9,6 +9,7 @@ export const FilterByLanMovie = ({
   loading,
   selectedLanguage,
   originalLanguage,
+  onCardClick,
   error,
 }: {
   languages: Language[];
@@ -18,6 +19,7 @@ export const FilterByLanMovie = ({
   loading: boolean;
   selectedLanguage: string;
   originalLanguage: Language["name"];
+  onCardClick: (movie: MovieType) => void;
   error?: string | null;
 }) => {
   return (
@@ -46,9 +48,7 @@ export const FilterByLanMovie = ({
         <MovieList
           movies={filterMoviesByLanguage}
           name={originalLanguage}
-          onCardClick={function (_movie: MovieType): void {
-            throw new Error("Function not implemented.");
-          }}
+          onCardClick={onCardClick}
         />
       )}
     </section>

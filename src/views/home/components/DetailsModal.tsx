@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { MotionButton } from "@/components/motionBotton";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { genres } from "@/data/movieGenereData.json";
-import { PlayTailer } from "./MovieTailer";
+import { PlayTrailer } from "./TailerScection";
 
 export const DetailsModal = ({
   movie,
@@ -36,7 +36,7 @@ export const DetailsModal = ({
         className="flex flex-col justify-between px-8 w-full h-full scrollbar-hide overflow-y-auto"
       >
         {/* video */}
-        <PlayTailer title={movie ? movie.title : tvShow?.name} />
+        <PlayTrailer title={movie ? movie.title : tvShow?.name} />
 
         {/* movie details */}
         <div className="flex  space-x-4">

@@ -91,6 +91,7 @@ export const HomePage: React.FC = () => {
           selectedLanguage={state.selectedMovieLanguage.iso_639_1}
           error={moviesByLanguageError}
           originalLanguage={state.selectedMovieLanguage.name}
+          onCardClick={handlers.handleMovieClick}
         />
       </div>
 
