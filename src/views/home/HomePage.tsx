@@ -13,11 +13,15 @@ import { TvShowSection } from "./components/TvShowSection";
 import { languages } from "@/data/languageData.json";
 import { FilterByLanMovie } from "./components/FilterByLanMovie";
 import { useFilteredMoviesByLanguage } from "@/hooks/useFilteredMoviesByLan";
-import { Language } from "types";
+import { Language, MovieType } from "types";
+import { MovieDetailsModal } from "./components/MovieDetailsModal";
 
 export const HomePage: React.FC = () => {
   const [selectedGenreId, setSelectedGenreId] = useState<number>(28);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedMovieLanguage, setSelectedMovieLanguage] = useState<Language>({
     english_name: "English",
@@ -81,6 +85,18 @@ export const HomePage: React.FC = () => {
     }
   };
 
+  // ! Modal handlers
+
+  const handleMovieClick = (movie: MovieType) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedMovie(null);
+  };
+
   if (moviesError || newMoviesError) {
     return (
       <div className="flex items-center justify-center h-screen bg-slate-950 text-red-500">
@@ -101,33 +117,37 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Hero Section */}
-        <div className="w-full relative">
-          <Hero movies={newMovies} />
 
-          {/* TendingSection */}
-          <TendingSection
-            genres={genres}
-            movies={movies}
-            selectedGenreId={selectedGenreId}
-            handleGenreClick={handleGenreClick}
-            loading={moviesLoading || newMoviesLoading}
-            selectedGenre={selectedGenre}
-          />
-          <TvShowSection shows={shows} loading={loading} />
+        <Hero movies={newMovies} />
 
-          {/* api not working */}
-          <FilterByLanMovie
-            languages={languages}
-            filterMoviesByLanguage={filteredMovies}
-            selectedMovieLanguage={selectedMovieLanguage.iso_639_1}
-            handleLanClick={handleLanClick}
-            loading={moviesByLanguageLoading}
-            selectedLanguage={selectedMovieLanguage.iso_639_1}
-            error={moviesByLanguageError}
-            originalLanguage={selectedMovieLanguage.name}
-          />
-        </div>
+        {/* TendingSection */}
+        <TendingSection
+          genres={genres}
+          movies={movies}
+          selectedGenreId={selectedGenreId}
+          handleGenreClick={handleGenreClick}
+          loading={moviesLoading || newMoviesLoading}
+          selectedGenre={selectedGenre}
+          onCardClick={handleMovieClick}
+        />
+
+        <TvShowSection shows={shows} loading={loading} />
+
+        <FilterByLanMovie
+          languages={languages}
+          filterMoviesByLanguage={filteredMovies}
+          selectedMovieLanguage={selectedMovieLanguage.iso_639_1}
+          handleLanClick={handleLanClick}
+          loading={moviesByLanguageLoading}
+          selectedLanguage={selectedMovieLanguage.iso_639_1}
+          error={moviesByLanguageError}
+          originalLanguage={selectedMovieLanguage.name}
+        />
       </div>
+
+      {isModalOpen && (
+        <MovieDetailsModal movie={selectedMovie} onClose={handleCloseModal} />
+      )}
     </AuroraBackground>
   );
 };

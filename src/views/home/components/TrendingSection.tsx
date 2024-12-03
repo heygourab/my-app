@@ -10,6 +10,7 @@ export const TendingSection = ({
   handleGenreClick,
   loading,
   selectedGenre,
+  onCardClick,
 }: {
   genres: Genres[];
   movies: MovieType[];
@@ -17,6 +18,7 @@ export const TendingSection = ({
   handleGenreClick: (id: number) => void;
   loading: boolean;
   selectedGenre: string;
+  onCardClick: (movie: MovieType) => void;
 }) => {
   const words =
     "Discover the latest and greatest movies across various genres — ";
@@ -47,7 +49,11 @@ export const TendingSection = ({
         {loading ? (
           <LoadingIndicator />
         ) : (
-          <MovieList movies={movies} name={selectedGenre} />
+          <MovieList
+            movies={movies}
+            name={selectedGenre}
+            onCardClick={onCardClick}
+          />
         )}
       </div>
     </section>

@@ -28,8 +28,6 @@ export const useFilteredMoviesByLanguage = (
         );
 
         const movies = response.data.results || [];
-
-        console.log("movies", movies);
         const filtered = movies.filter(
           (movie: MovieType) => movie.original_language === language
         );

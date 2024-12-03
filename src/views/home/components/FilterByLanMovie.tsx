@@ -43,7 +43,13 @@ export const FilterByLanMovie = ({
       {loading ? (
         <LoadingIndicator />
       ) : (
-        <MovieList movies={filterMoviesByLanguage} name={originalLanguage} />
+        <MovieList
+          movies={filterMoviesByLanguage}
+          name={originalLanguage}
+          onCardClick={function (movie: MovieType): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       )}
     </section>
   );

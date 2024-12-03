@@ -6,6 +6,7 @@ import { MovieType } from "types";
 type MovieCategoryProps = {
   name: string;
   movies: MovieType[];
+  onCardClick: (movie: MovieType) => void;
 };
 
 const MovieList = (props: MovieCategoryProps) => {
@@ -68,6 +69,7 @@ const MovieList = (props: MovieCategoryProps) => {
               id={0}
               name={""}
               first_air_date={""}
+              onClick={() => props.onCardClick(movie)}
             />
           </motion.div>
         ))}
