@@ -27,3 +27,15 @@ export type Genres = {
   id: number;
   name: string;
 };
+
+export type Language = {
+  iso_639_1: string;
+  english_name: string;
+  name: string;
+};
+
+export type Country = {
+  iso_3166_1: string;
+  english_name: string;
+  name: string;
+};

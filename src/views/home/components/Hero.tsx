@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MovieType } from "types";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
@@ -6,17 +6,27 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 import { genres } from "@/data/movieGenereData.json";
-
+import { motion } from "framer-motion";
 export const Hero = ({ movies }: { movies: MovieType[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const nextMovie = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % movies.length);
+  }, [movies.length]);
+
+  const previousMovie = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? movies.length - 1 : prevIndex - 1
+    );
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % movies.length);
+      nextMovie();
     }, 10000);
 
     return () => clearInterval(timer);
-  }, [movies.length]);
+  }, [movies.length, nextMovie]);
 
   return (
     <div className="w-full pt-4 relative">
@@ -45,25 +55,23 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
                 <h1 className="text-5xl md:text-6xl font-bold text-neutral-100">
                   {movie.title}
                 </h1>
-                <div className="w-full  md:w-2/3">
+                <div className="w-full md:w-2/3">
                   <TextGenerateEffect
                     words={movie.overview ?? ""}
-                    className="font-normal "
+                    className="font-normal"
                     textClassName="text-base md:text-lg text-neutral-300 text-pretty"
                   />
                 </div>
-
                 <div className="flex mt-6 gap-2 w-full">
                   {movie.genre_ids?.map((id) => (
                     <div
-                      key={id} // Using the unique genre ID as the key
+                      key={id}
                       className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs backdrop-blur"
                     >
                       {genres.find((genre) => genre.id === id)?.name}
                     </div>
                   ))}
                 </div>
-
                 <div className="mt-4">
                   <Button
                     className="flex items-center gap-2 p-6 rounded-full text-neutral-950 bg-neutral-100"
@@ -89,7 +97,8 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
           </div>
         ))}
       </AspectRatio>
-      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2">
+
+      <div className="absolute -bottom-8 left-1/2 justify-center transform -translate-x-1/2 flex space-x-2">
         {movies.map((_, index) => (
           <button
             key={index}
@@ -99,6 +108,49 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
             onClick={() => setCurrentIndex(index)}
           />
         ))}
+      </div>
+
+      <div className="flex absolute right-0 -bottom-12 space-x-4">
+        <motion.button
+          className="p-2 rounded-full bg-white hover:bg-neutral-950 hover:outline hover:outline-white hover:text-neutral-200 transition duration-300"
+          onClick={previousMovie}
+          whileTap={{ scale: 0.9 }} // Apply click animation
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="size-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+            />
+          </svg>
+        </motion.button>
+        <motion.button
+          className="p-2 rounded-full bg-white hover:bg-neutral-950 hover:outline hover:outline-white hover:text-neutral-200 transition duration-300"
+          onClick={nextMovie}
+          whileTap={{ scale: 0.9 }} // Apply click animation
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="size-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+            />
+          </svg>
+        </motion.button>
       </div>
     </div>
   );
