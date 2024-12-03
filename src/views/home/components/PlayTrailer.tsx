@@ -13,8 +13,8 @@ export const PlayTrailer = ({
   const fallbackVideoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Replace with your default video URL
 
   return (
-    <section>
-      <AspectRatio ratio={19 / 6}>
+    <section className="">
+      <AspectRatio ratio={1.85/1}>
         {loading ? (
           <LoadingIndicator />
         ) : (
