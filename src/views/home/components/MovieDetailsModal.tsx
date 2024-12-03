@@ -2,10 +2,9 @@ import { motion } from "framer-motion";
 import { MovieType } from "types";
 import { X } from "lucide-react";
 import { MotionButton } from "@/components/motionBotton";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-
 import { genres } from "@/data/movieGenereData.json";
+import { MovieTailer } from "./MovieTailer";
 
 export const MovieDetailsModal = ({
   movie,
@@ -15,7 +14,6 @@ export const MovieDetailsModal = ({
   onClose: () => void;
 }) => {
   if (!movie) return null;
-  console.log(movie);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -37,18 +35,7 @@ export const MovieDetailsModal = ({
         className="flex flex-col justify-between px-8 w-full h-full scrollbar-hide overflow-y-auto"
       >
         {/* video */}
-        <AspectRatio ratio={19 / 6}>
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/njX2bu-_Vw4"
-            title="2020 LG OLED l  The Black 4K HDR 60fps"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            className="rounded-3xl"
-          ></iframe>
-        </AspectRatio>
+        <MovieTailer movieTitle={movie.original_title ?? ""} />
 
         {/* movie details */}
         <div className="flex  space-x-4">

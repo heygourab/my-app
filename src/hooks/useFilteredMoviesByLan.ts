@@ -17,7 +17,7 @@ export const useFilteredMoviesByLanguage = (
     }
 
     const fetchMovies = async () => {
-      const API_KEY = "532f22a5b395e0cc6588f24e273cb8b0"; // Note: Store this securely in environment variables!
+      const API_KEY = `${import.meta.env.VITE_TMDB_API_KEY}`;
       const BASE_URL = "https://api.themoviedb.org/3";
 
       try {

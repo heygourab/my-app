@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
-const API_KEY = "532f22a5b395e0cc6588f24e273cb8b0";
+const API_KEY = `${import.meta.env.VITE_TMDB_API_KEY}`;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 interface Movie {
