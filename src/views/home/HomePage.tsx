@@ -61,7 +61,7 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* Hero Section */}
-        <Hero movies={newMovies} />
+        <Hero movies={newMovies} onClick={handlers.handleMovieClick} />
 
         {/* Trending Section */}
         <TendingSection

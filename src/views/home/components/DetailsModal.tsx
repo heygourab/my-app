@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useRef } from "react";
 import { MovieType, TVShow } from "types";
 import { X } from "lucide-react";
 import { MotionButton } from "@/components/motionBotton";
@@ -16,31 +17,64 @@ export const DetailsModal = ({
   tvShow?: TVShow;
   onClose: () => void;
 }) => {
+  // Ref for the scrollable container
+  const scrollableRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScrollDown = () => {
+    if (scrollableRef.current) {
+      scrollableRef.current.scrollBy({
+        top: 200, // Adjust as per your scroll requirement
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed  inset-0 bg-black/75  bg-opacity-40 backdrop-blur-lg flex items-center justify-center z-50 p-8"
+      className="fixed inset-0 bg-black/75 bg-opacity-40 backdrop-blur-lg flex items-center justify-center z-50 p-8"
     >
       <MotionButton
-        className="absolute top-3 right-3"
+        className="absolute top-4 right-4"
         onClick={onClose}
         children={<X />}
       />
 
+      {/* Scroll Down Button */}
+      <MotionButton
+        onClick={handleScrollDown}
+        className="absolute bottom-4 right-4"
+        children={
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="size-6"
+          >
+            <path
+              fillRule="evenodd"
+              d="M12 2.25a.75.75 0 0 1 .75.75v16.19l2.47-2.47a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 1 1 1.06-1.06l2.47 2.47V3a.75.75 0 0 1 .75-.75Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        }
+      />
+
       <motion.div
+        ref={scrollableRef} // Attach ref to this container
         initial={{ opacity: 0, y: 50, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 50, scale: 0.95 }}
         transition={{ type: "spring", damping: 15, stiffness: 300 }}
-        className="flex flex-col justify-between px-8 w-full h-full scrollbar-hide overflow-y-auto"
+        className="flex flex-col p-8 w-full h-full scrollbar-hide overflow-y-auto"
       >
         {/* video */}
         <PlayTrailer title={movie?.title ?? tvShow?.name ?? "Untitled"} />
 
         {/* movie details */}
-        <div className="flex  space-x-4">
+        <div className="flex space-x-4 mt-8">
           <div className="flex gap-4">
             <img
               src={`https://image.tmdb.org/t/p/w500/${

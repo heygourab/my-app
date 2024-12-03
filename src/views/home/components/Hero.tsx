@@ -7,7 +7,13 @@ import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 import { genres } from "@/data/movieGenereData.json";
 import { motion } from "framer-motion";
-export const Hero = ({ movies }: { movies: MovieType[] }) => {
+export const Hero = ({
+  movies,
+  onClick,
+}: {
+  movies: MovieType[];
+  onClick: (movie: MovieType) => void;
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextMovie = useCallback(() => {
@@ -75,7 +81,11 @@ export const Hero = ({ movies }: { movies: MovieType[] }) => {
                 <div className="mt-4">
                   <Button
                     className="flex items-center gap-2 p-6 rounded-full text-neutral-950 bg-neutral-100"
-                    onClick={() => console.log("clicked")}
+                    onClick={() => {
+                      console.log(movie);
+
+                      onClick(movies[currentIndex]);
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
