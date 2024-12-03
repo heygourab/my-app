@@ -14,9 +14,9 @@ export const PlayTrailer = ({
 
   return (
     <section className="">
-      <AspectRatio ratio={1.85/1}>
+      <AspectRatio ratio={1.85 / 1}>
         {loading ? (
-          <LoadingIndicator />
+          <LoadingIndicator title="Tailer" />
         ) : (
           <iframe
             width="100%"

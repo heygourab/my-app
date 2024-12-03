@@ -66,12 +66,8 @@ export const DetailsModal = ({
         }
       />
 
-      <motion.div
+      <div
         ref={scrollableRef} // Attach ref to this container
-        initial={{ opacity: 0, y: 50, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 50, scale: 0.95 }}
-        transition={{ type: "spring", damping: 15, stiffness: 300 }}
         className="flex flex-col p-8 w-full h-full scrollbar-hide overflow-y-auto"
       >
         {/* video */}
@@ -136,7 +132,7 @@ export const DetailsModal = ({
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };
