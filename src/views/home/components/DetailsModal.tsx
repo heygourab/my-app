@@ -34,7 +34,7 @@ export const DetailsModal = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/75 bg-opacity-40 backdrop-blur-lg flex items-center justify-center z-50 p-8"
+      className="fixed inset-0 scroll-smooth bg-black/75 bg-opacity-40 backdrop-blur-lg flex items-center justify-center z-50 p-8"
     >
       <MotionButton
         className="absolute top-4 right-4"
@@ -71,6 +71,7 @@ export const DetailsModal = ({
         className="flex flex-col p-8 w-full h-full scrollbar-hide overflow-y-auto"
       >
         {/* video */}
+        {/* (1.85 / 1) aspect-ratio */}
         <PlayTrailer title={movie?.title ?? tvShow?.name ?? "Untitled"} />
 
         {/* movie details */}
@@ -82,6 +83,7 @@ export const DetailsModal = ({
               }`}
               alt=""
               className="w-56 h-80 rounded-3xl object-cover"
+              loading="lazy"
             />
             <div className="flex flex-col w-1/2">
               <h3 className="text-4xl text-neutral-200 font-bold tracking-wide">
