@@ -6,9 +6,14 @@ export const useFetchMovieTrailer = (movieTitle: string) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchTrailer = async (movieTitle: string) => {
-    const apiKey = `${import.meta.env.VITE_YT_API_KEY}`; // Replace with your API key
-    const query = `${movieTitle} official trailer`;
+  const fetchTrailer = async (title: string) => {
+    if (!title.trim()) {
+      setError("Movie title is empty.");
+      return;
+    }
+
+    const apiKey = import.meta.env.VITE_YT_API_KEY; // Ensure this is correctly set in .env
+    const query = `${title} official trailer`;
     const url = `https://www.googleapis.com/youtube/v3/search`;
 
     setLoading(true);
@@ -33,21 +38,25 @@ export const useFetchMovieTrailer = (movieTitle: string) => {
         const iframeUrl = `https://www.youtube.com/embed/${videoId}`;
         setIframeUrl(iframeUrl);
       } else {
-        setIframeUrl("");
         setError("No trailer found.");
       }
     } catch (err) {
-      console.error(err);
-      setError("Error fetching trailer. Please try again.");
+      if (axios.isAxiosError(err)) {
+        setError(
+          err.response?.data.error.message || "Failed to fetch trailer."
+        );
+        console.error("Axios error:", err.response?.data || err.message);
+      } else {
+        setError("Unexpected error occurred.");
+        console.error("Unexpected error:", err);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (movieTitle.trim()) {
-      fetchTrailer(movieTitle);
-    }
+    fetchTrailer(movieTitle);
   }, [movieTitle]);
 
   return { iframeUrl, loading, error };
