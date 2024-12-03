@@ -10,6 +10,7 @@ export const useHomePageHandlers = (state: {
   setSelectedMovie: (movie: MovieType | null) => void;
   setIsModalOpen: (isOpen: boolean) => void;
   setSelectedTvShow: (tvShow: TVShow | null) => void;
+  selectedGenreId: number;
 }) => {
   const {
     setSelectedGenreId,
