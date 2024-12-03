@@ -42,7 +42,6 @@ export const HomePage: React.FC = () => {
     error: newMoviesError,
   } = useLatestMovies();
 
-  // ! api not working
   // fetch trending movies based on selected language
   const {
     filteredMovies,
@@ -64,7 +63,6 @@ export const HomePage: React.FC = () => {
     setSelectedGenreId(id);
   };
 
-  // ! api not working
   const handleLanClick = (iso_639_1: string) => {
     const language = languages.find((lang) => lang.iso_639_1 === iso_639_1);
     if (language) {
@@ -101,6 +99,7 @@ export const HomePage: React.FC = () => {
             onSubmit={onSubmit}
           />
         </div>
+
         {/* Hero Section */}
         <div className="w-full relative">
           <Hero movies={newMovies} />
