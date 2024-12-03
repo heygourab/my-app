@@ -8,6 +8,7 @@ export const FilterByLanMovie = ({
   handleLanClick,
   loading,
   selectedLanguage,
+  originalLanguage,
   error,
 }: {
   languages: Language[];
@@ -16,6 +17,7 @@ export const FilterByLanMovie = ({
   handleLanClick: (iso_639_1: Language["iso_639_1"]) => void;
   loading: boolean;
   selectedLanguage: string;
+  originalLanguage: Language["name"];
   error?: string | null;
 }) => {
   return (
@@ -41,7 +43,7 @@ export const FilterByLanMovie = ({
       {loading ? (
         <LoadingIndicator />
       ) : (
-        <MovieList movies={filterMoviesByLanguage} name={selectedLanguage} />
+        <MovieList movies={filterMoviesByLanguage} name={originalLanguage} />
       )}
     </section>
   );

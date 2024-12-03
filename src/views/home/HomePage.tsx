@@ -19,8 +19,11 @@ export const HomePage: React.FC = () => {
   const [selectedGenreId, setSelectedGenreId] = useState<number>(28);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const [selectedMovieLanguage, setSelectedMovieLanguage] =
-    useState<Language["iso_639_1"]>("en-US");
+  const [selectedMovieLanguage, setSelectedMovieLanguage] = useState<Language>({
+    english_name: "English",
+    iso_639_1: "en",
+    name: "English",
+  });
 
   // fetch trending tv shows
   const { shows, loading } = useTrendingTVShows();
@@ -45,7 +48,7 @@ export const HomePage: React.FC = () => {
     filteredMovies,
     loading: moviesByLanguageLoading,
     error: moviesByLanguageError,
-  } = useFilteredMoviesByLanguage(selectedMovieLanguage);
+  } = useFilteredMoviesByLanguage(selectedMovieLanguage?.iso_639_1);
 
   // Memoized genre selection
 
@@ -62,9 +65,11 @@ export const HomePage: React.FC = () => {
   };
 
   // ! api not working
-  const handleLanClick = (iso_639_1: Language["iso_639_1"]) => {
-    console.log(iso_639_1);
-    setSelectedMovieLanguage(iso_639_1);
+  const handleLanClick = (iso_639_1: string) => {
+    const language = languages.find((lang) => lang.iso_639_1 === iso_639_1);
+    if (language) {
+      setSelectedMovieLanguage(language);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,11 +118,12 @@ export const HomePage: React.FC = () => {
         <FilterByLanMovie
           languages={languages}
           filterMoviesByLanguage={filteredMovies}
-          selectedMovieLanguage={selectedMovieLanguage}
+          selectedMovieLanguage={selectedMovieLanguage.iso_639_1}
           handleLanClick={handleLanClick}
           loading={moviesByLanguageLoading}
-          selectedLanguage={selectedMovieLanguage}
+          selectedLanguage={selectedMovieLanguage.iso_639_1}
           error={moviesByLanguageError}
+          originalLanguage={selectedMovieLanguage.name}
         />
       </div>
     </AuroraBackground>
