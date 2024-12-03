@@ -46,7 +46,7 @@ export const FilterByLanMovie = ({
         <MovieList
           movies={filterMoviesByLanguage}
           name={originalLanguage}
-          onCardClick={function (movie: MovieType): void {
+          onCardClick={function (_movie: MovieType): void {
             throw new Error("Function not implemented.");
           }}
         />

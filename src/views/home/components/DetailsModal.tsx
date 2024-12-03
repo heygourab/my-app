@@ -1,19 +1,20 @@
 import { motion } from "framer-motion";
-import { MovieType } from "types";
+import { MovieType, TVShow } from "types";
 import { X } from "lucide-react";
 import { MotionButton } from "@/components/motionBotton";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { genres } from "@/data/movieGenereData.json";
-import { MovieTailer } from "./MovieTailer";
+import { PlayTailer } from "./MovieTailer";
 
-export const MovieDetailsModal = ({
+export const DetailsModal = ({
   movie,
+  tvShow,
   onClose,
 }: {
-  movie: MovieType | null;
+  movie?: MovieType;
+  tvShow?: TVShow;
   onClose: () => void;
 }) => {
-  if (!movie) return null;
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -35,19 +36,21 @@ export const MovieDetailsModal = ({
         className="flex flex-col justify-between px-8 w-full h-full scrollbar-hide overflow-y-auto"
       >
         {/* video */}
-        <MovieTailer movieTitle={movie.original_title ?? ""} />
+        <PlayTailer title={movie ? movie.title : tvShow?.name} />
 
         {/* movie details */}
         <div className="flex  space-x-4">
           <div className="flex gap-4">
             <img
-              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w500/${
+                movie ? movie.poster_path : tvShow?.poster_path
+              }`}
               alt=""
               className="w-56 h-80 rounded-3xl object-cover"
             />
             <div className="flex flex-col w-1/2">
               <h3 className="text-4xl text-neutral-200 font-bold tracking-wide">
-                {movie.title}
+                {movie?.title ?? tvShow?.name}
               </h3>
               <div className="flex font-bold items-center gap-2 divide-x-2 divide-neutral-200 text-base mt-2">
                 {/* Rating Section */}
@@ -65,19 +68,24 @@ export const MovieDetailsModal = ({
                     />
                   </svg>
                   <p className="text-neutral-400">
-                    {movie.vote_average?.toFixed(1)} / 10
+                    {movie
+                      ? movie.vote_average?.toFixed(1)
+                      : tvShow?.vote_average.toFixed(1)}{" "}
+                    / 10
                   </p>
                 </div>
                 {/* Release Date Section */}
-                <p className="pl-4 text-neutral-400">{movie.release_date}</p>
+                <p className="pl-4 text-neutral-400">
+                  {movie ? movie.release_date : tvShow?.first_air_date}
+                </p>
               </div>
               <TextGenerateEffect
                 className="font-normal"
-                words={movie.overview ?? ""}
+                words={movie?.overview ?? ""}
                 textClassName="text-sm text-neutral-300"
               />
               <div className="flex mt-6 gap-2 w-full">
-                {movie.genre_ids?.map((id) => (
+                {movie?.genre_ids?.map((id) => (
                   <div
                     key={id}
                     className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs backdrop-blur"

@@ -1,9 +1,14 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useFetchMovieTrailer } from "@/hooks/useFetchMovieTrailer";
+import { MovieType, TVShow } from "types";
 
-export const MovieTailer = ({ movieTitle }: { movieTitle: string }) => {
-  const { iframeUrl, loading, error } = useFetchMovieTrailer(movieTitle);
+export const PlayTailer = ({
+  title,
+}: {
+  title: MovieType["title"] | TVShow["name"];
+}) => {
+  const { iframeUrl, loading, error } = useFetchMovieTrailer(title || "");
   return (
     <section>
       <AspectRatio ratio={19 / 6}>
