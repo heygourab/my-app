@@ -12,7 +12,7 @@ import { Hero } from "@/views/home/components/Hero";
 import { TendingSection } from "./components/TrendingSection";
 import { TvShowSection } from "./components/TvShowSection";
 import { FilterByLanMovie } from "./components/FilterByLanMovie";
-import { DetailsModal } from "./components/DetailsModal";
+import { DetailsModal } from "../../components/DetailsModal";
 import { placeHolderTexts } from "@/constants";
 
 import { languages } from "@/data/languageData.json";

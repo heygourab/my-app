@@ -7,37 +7,39 @@ type MovieCategoryProps = {
   name: string;
   movies: MovieType[];
   onCardClick: (movie: MovieType) => void;
+  isSubtitleShow?: boolean;
 };
 
 const MovieList = (props: MovieCategoryProps) => {
+  const { isSubtitleShow = true } = props;
   return (
     <div className="mt-8">
-      <h2 className="flex items-end gap-4 font-normal text-white ">
-        <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6 flex-shrink-0"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
-            />
-          </svg>
-        </span>
+      {isSubtitleShow ? (
+        <h2 className="flex items-end gap-4 font-normal text-white ">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="size-6 flex-shrink-0"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
+              />
+            </svg>
+          </span>
 
-        {
           <TextGenerateEffect
             words={`Trending ${props.name} Movies`}
             className="font-normal"
             fontSize="lg"
           />
-        }
-      </h2>
+        </h2>
+      ) : null}
       <motion.div
         className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-4"
         initial="hidden"

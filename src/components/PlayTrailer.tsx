@@ -5,15 +5,17 @@ import { MovieType, TVShow } from "types";
 
 export const PlayTrailer = ({
   title,
+  className,
 }: {
   title: MovieType["title"] | TVShow["name"];
+  className?: string;
 }) => {
   const { iframeUrl, loading, error } = useFetchMovieTrailer(title || "");
 
   const fallbackVideoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Replace with your default video URL
 
   return (
-    <section className="">
+    <section className={`${className}`}>
       <AspectRatio ratio={1.85 / 1}>
         {loading ? (
           <LoadingIndicator title="Tailer" />

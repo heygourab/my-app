@@ -35,7 +35,7 @@ export const Hero = ({
   }, [movies.length, nextMovie]);
 
   return (
-    <div className="w-full pt-4 relative">
+    <main className=" w-full  sm:visible pt-4 relative">
       <AspectRatio ratio={19 / 6} className="overflow-hidden rounded-3xl">
         {movies.map((movie, index) => (
           <div
@@ -49,7 +49,7 @@ export const Hero = ({
               alt={`${movie.title} Poster`}
               className="w-full h-full object-cover"
             />
-            <div className="absolute p-4 inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-between">
+            <div className="absolute p-4 inset-0 bg-gradient-to-t from-slate-950/90 to-transparent flex flex-col justify-between">
               <HoverBorderGradient
                 as="button"
                 className="text-white bg-transparent flex gap-2 items-center space-x-2"
@@ -162,6 +162,6 @@ export const Hero = ({
           </svg>
         </motion.button>
       </div>
-    </div>
+    </main>
   );
 };

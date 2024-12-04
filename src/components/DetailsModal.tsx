@@ -7,6 +7,9 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { genres } from "@/data/movieGenereData.json";
 
 import { PlayTrailer } from "./PlayTrailer";
+import { CastList } from "./CastList";
+import { useFetchMovieCredits } from "@/hooks/useFetchMovieCredits";
+import { LoadingIndicator } from "./LoadingIndicator";
 
 export const DetailsModal = ({
   movie,
@@ -18,6 +21,10 @@ export const DetailsModal = ({
   onClose: () => void;
 }) => {
   const scrollableRef = useRef<HTMLDivElement | null>(null);
+
+  const { casts, loading, error } = useFetchMovieCredits({
+    movie_id: movie?.id,
+  });
 
   const handleScrollDown = () => {
     scrollableRef.current?.scrollBy({ top: 200, behavior: "smooth" });
@@ -120,6 +127,11 @@ export const DetailsModal = ({
               })}
             </div>
           </div>
+        </div>
+
+        <div className="w-full mt-8">
+          <h2 className="text-4xl text-neutral-200 font-bold">Movie Casts —</h2>
+          <CastList casts={casts ?? []} />
         </div>
       </div>
     </motion.div>

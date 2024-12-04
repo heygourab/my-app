@@ -22,7 +22,7 @@ export const demoMoveList: MovieType[] = [
     original_language: "en",
     original_title: "Godzilla vs. Kong",
     overview:
-      "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
+      "In a time when monsters walk the Earth, humanity's fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
     popularity: 10493.0,
     poster_path: "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
     release_date: "2021-03-24",
