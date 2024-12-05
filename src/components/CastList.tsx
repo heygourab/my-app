@@ -45,7 +45,7 @@ const CastItem = React.memo(({ cast }: { cast: Cast }) => (
                 gender.id === cast.gender
             )?.name || "Unknown"}
           </p>
-          <p className="pl-4 text-xs">{cast.known_for_department}</p>
+          <p className="pl-4  text-xs">{cast.character}</p>
         </div>
       </div>
     </div>

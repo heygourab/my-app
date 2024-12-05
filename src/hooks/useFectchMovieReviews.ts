@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { Review } from "types";
 
-export const useFetchMovieReviews = (movieId: number) => {
+export const useFetchMovieReviews = (movieId: number | undefined) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -14,6 +14,12 @@ export const useFetchMovieReviews = (movieId: number) => {
     if (!API_KEY) {
       console.error("API key not found");
       setError("API key not found");
+      return;
+    }
+
+    if (!movieId) {
+      console.error("Movie ID not found");
+      setError("Movie ID not found");
       return;
     }
     try {
@@ -43,4 +49,3 @@ export const useFetchMovieReviews = (movieId: number) => {
   }, [fetchNewlyReleasedMovies]);
   return { reviews, loading, error };
 };
-// Removed the incorrect useCallBack function
