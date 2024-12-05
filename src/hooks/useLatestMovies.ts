@@ -32,7 +32,7 @@ export const useLatestMovies = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [API_KEY, BASE_URL]);
 
   useEffect(() => {
     fetchNewlyReleasedMovies();
