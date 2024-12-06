@@ -60,16 +60,12 @@ export const DetailsModal = ({
         <X />
       </MotionButton>
 
-      <span className="text-white absolute bottom-28 -right-2 rotate-90">
-        Scroll Down
-      </span>
-
-      <MotionButton
-        onClick={handleScrollDown}
-        className="absolute bottom-4 right-4 "
-      >
-        <ArrowDownIcon className="size-6 text-black  hover:text-white" />
-      </MotionButton>
+      <div className="absolute hidden z-50 space-y-12 bottom-4 -right-2 sm:flex flex-col items-center">
+        <span className="text-white rotate-90">Scroll Down</span>
+        <MotionButton onClick={handleScrollDown}>
+          <ArrowDownIcon className="w-6 h-6 text-black hover:text-white" />
+        </MotionButton>
+      </div>
 
       <div
         ref={scrollableRef}
