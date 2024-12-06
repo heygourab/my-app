@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { Cast } from "types";
-import { genders } from "@/data/genderData.json";
 interface MovieListProps {
   casts: Cast[];
 }
@@ -35,17 +34,11 @@ const CastItem = React.memo(({ cast }: { cast: Cast }) => (
         loading="lazy"
       />
       <div>
-        <h3 className="truncate text-base font-medium tracking-wide capitalize text-white">
+        <h3 className="truncate text-base mt-2 font-medium tracking-wide capitalize text-white">
           {cast.name}
         </h3>
-        <div className="mt-1 flex items-center gap-x-4 divide-x divide-slate-700 text-slate-400">
-          <p className="text-xs">
-            {genders.find(
-              (gender: { id: number; name: string }) =>
-                gender.id === cast.gender
-            )?.name || "Unknown"}
-          </p>
-          <p className="pl-4  text-xs">{cast.character}</p>
+        <div className="text-slate-400">
+          <p className="text-xs">{cast.character}</p>
         </div>
       </div>
     </div>
@@ -53,7 +46,7 @@ const CastItem = React.memo(({ cast }: { cast: Cast }) => (
 ));
 
 export const CastList = ({ casts }: MovieListProps) => (
-  <div className="mt-8">
+  <div className="mt-4">
     <motion.div
       className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-4"
       initial="hidden"
