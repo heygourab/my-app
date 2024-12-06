@@ -35,7 +35,7 @@ export const useFetchMovieReviews = (movieId: number | undefined) => {
         response.data.results &&
         response.data.results.length > 0
       ) {
-        setReviews(response.data.results);
+        setReviews(response.data.results.slice(0, 5));
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to fetch reviews");

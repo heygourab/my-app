@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { MovieType, TVShow } from "types";
 import { X } from "lucide-react";
-import { MotionButton } from "@/components/motionBotton";
+import { MotionButton } from "./MotionBotton"; // Fixed import path
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { genres } from "@/data/movieGenereData.json";
 
@@ -13,6 +13,7 @@ import { StarIcon } from "@heroicons/react/16/solid";
 import { ArrowDownIcon } from "@heroicons/react/16/solid";
 
 import { MovieReviews } from "./MovieReviews";
+import { useFetchMovieReviews } from "@/hooks/useFectchMovieReviews";
 
 export const DetailsModal = ({
   movie,
@@ -23,10 +24,13 @@ export const DetailsModal = ({
   tvShow?: TVShow;
   onClose: () => void;
 }) => {
+  const { reviews, loading, error } = useFetchMovieReviews(
+    movie?.id || undefined
+  );
   const scrollableRef = useRef<HTMLDivElement | null>(null);
 
   // Fetch movie credits (casts)
-  const { casts, loading, error } = useFetchMovieCredits({
+  const { casts } = useFetchMovieCredits({
     movie_id: movie?.id,
   });
 
@@ -73,9 +77,11 @@ export const DetailsModal = ({
       >
         <PlayTrailer title={title} />
 
-        <div className="w-full flex divide-x-2 divide-neutral-400 divide-dotted mt-8">
-          {/* movie details */}
-          <div className="flex w-full gap-4 ">
+        <div
+          className={`w-full flex divide-x-2 divide-neutral-400 divide-dotted mt-8`}
+        >
+          {/* movie poster */}
+          <div className={`flex gap-4`}>
             {posterPath && (
               <img
                 src={posterPath}
@@ -84,7 +90,12 @@ export const DetailsModal = ({
                 loading="lazy"
               />
             )}
-            <div className="flex flex-col w-full pr-4">
+            {/* movie metadata*/}
+            <div
+              className={`flex flex-col ${
+                !reviews.length ? "w-2/3" : "w-full"
+              } pr-4`}
+            >
               <h2 className="text-5xl text-neutral-200 font-bold">{title}</h2>
               <div className="flex font-bold items-center gap-2 divide-x-2 divide-neutral-200 text-base mt-2">
                 {voteAverage && (
@@ -121,7 +132,9 @@ export const DetailsModal = ({
               </div>
             </div>
           </div>
-          {movie?.id && <MovieReviews movie_id={movie?.id} />}
+          {movie?.id && reviews.length && (
+            <MovieReviews reviews={reviews} loading={loading} error={error} />
+          )}
         </div>
 
         {/* Cast Section */}
