@@ -21,7 +21,7 @@ export const MovieReviews = ({
   }
 
   return (
-    <section className="pl-4 ">
+    <section className="">
       <div className="flex flex-col justify-between h-full w-full">
         <h3 className="text-3xl w-full  text-neutral-200 font-semibold ">
           {title}

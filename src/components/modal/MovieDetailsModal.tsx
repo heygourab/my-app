@@ -2,17 +2,17 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { MovieType, TVShow } from "types";
 import { X } from "lucide-react";
-import { MotionButton } from "./MotionBotton"; // Fixed import path
+import { MotionButton } from "@/components/MotionBotton"; // Fixed import path
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { genres } from "@/data/movieGenereData.json";
 
-import { PlayTrailer } from "./PlayTrailer";
-import { CastList } from "./CastList";
+import { PlayTrailer } from "@/components/PlayTrailer";
+import { CastList } from "@/components/CastList";
 import { useFetchMovieCredits } from "@/hooks/useFetchMovieCredits";
 import { StarIcon } from "@heroicons/react/16/solid";
 import { ArrowDownIcon } from "@heroicons/react/16/solid";
 
-import { MovieReviews } from "./MovieReviews";
+import { MovieReviews } from "@/components/MovieReviews";
 import { useFetchMovieReviews } from "@/hooks/useFectchMovieReviews";
 
 export const DetailsModal = ({
