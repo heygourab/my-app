@@ -11,8 +11,10 @@ import { useFetchMovieCredits } from "@/hooks/useFetchMovieCredits";
 import { ArrowDownIcon } from "@heroicons/react/16/solid";
 
 import { MovieReviews } from "@/components/MovieReviews";
-import { useFetchMovieReviews } from "@/hooks/useFectchMovieReviews";
+import { useFetchMovieReviews } from "@/hooks/useFetchMovieReviews";
 import { MovieInfo } from "./MovieInfo";
+import { SimilarMovies } from "./SimilarMovies";
+import { RecommendedMovies } from "./RecommenedMovies";
 
 export const DetailsModal = ({
   movie,
@@ -26,6 +28,7 @@ export const DetailsModal = ({
   const { reviews, loading, error } = useFetchMovieReviews(
     movie?.id || undefined
   );
+
   const scrollableRef = useRef<HTMLDivElement | null>(null);
 
   // Fetch movie credits (casts)
@@ -75,6 +78,7 @@ export const DetailsModal = ({
           title={title}
         />
 
+        {/* Movie Info and Reviews */}
         <section className="order-1 flex flex-col md:flex-col lg:flex-row ">
           <MovieInfo
             title={title}
@@ -90,12 +94,22 @@ export const DetailsModal = ({
         </section>
 
         {/* Cast Section */}
-        <div className="mt-6 order-3">
+        <section className="mt-6 order-3">
           <h3 className="text-2xl text-neutral-200 font-bold">Movie Casts —</h3>
           {loading && <p className="text-neutral-400">Loading casts...</p>}
           {error && <p className="text-red-500">Failed to load casts.</p>}
           {!loading && !error && <CastList casts={casts ?? []} />}
-        </div>
+        </section>
+
+        {/* recommended movies */}
+        {movie?.id && (
+          <RecommendedMovies className={"order-4 mt-6"} movieId={movie.id} />
+        )}
+
+        {/* similar movies */}
+        {movie?.id && (
+          <SimilarMovies className={"order-4 mt-6"} movieId={movie.id} />
+        )}
       </div>
     </motion.div>
   );

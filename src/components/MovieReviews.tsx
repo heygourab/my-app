@@ -19,9 +19,9 @@ export const MovieReviews = ({
   if (error) {
     return <div>Error: {error}</div>;
   }
- 
+
   return (
-    <section className="flex flex-col mt-6">
+    <section className="flex flex-col mt-4">
       <h3 className="text-2xl text-neutral-200 font-semibold mb-12">{title}</h3>
       <CardStack
         className="border backdrop-blur-md md:w-3/4
