@@ -37,7 +37,7 @@ export const Hero = React.memo(
     }, [movies.length, nextMovie]);
 
     return (
-      <main className=" w-full  sm:visible pt-4 relative">
+      <main className="w-full pt-4 relative">
         <AspectRatio ratio={19 / 6} className="overflow-hidden rounded-3xl">
           {movies.map((movie, index) => (
             <div

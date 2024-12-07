@@ -19,19 +19,15 @@ export const MovieReviews = ({
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+ 
   return (
-    <section className="">
-      <div className="flex flex-col justify-between h-full w-full">
-        <h3 className="text-3xl w-full  text-neutral-200 font-semibold ">
-          {title}
-        </h3>
-        <CardStack
-          className="border backdrop-blur-md 
-          border-neutral-400"
-          items={reviews}
-        />
-      </div>
+    <section className="flex flex-col mt-6">
+      <h3 className="text-2xl text-neutral-200 font-semibold mb-12">{title}</h3>
+      <CardStack
+        className="border backdrop-blur-md md:w-3/4
+          border-neutral-400 w-full "
+        items={reviews}
+      />
     </section>
   );
 };

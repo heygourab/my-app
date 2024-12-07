@@ -42,7 +42,7 @@ export const CardStack = ({
   }, [cards, startFlipping]);
 
   return (
-    <div className={`relative h-60 w-60 md:h-60 md:w-96 `}>
+    <div className={`relative h-60 w-full md:h-60 md:w-96 `}>
       {cards.map((card, index) => (
         <motion.div
           key={card.id || index}
@@ -66,7 +66,7 @@ export const CardStack = ({
               .replace(/<\/?[^>]+(>|$)/g, "")
               .replace(/https?:\/\/\S+/g, "")
               .split(" ")
-              .slice(0, 50)
+              .slice(0, 30)
               .join(" ")}
             ...
           </div>
