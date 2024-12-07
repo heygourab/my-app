@@ -105,11 +105,6 @@ export const DetailsModal = ({
         {movie?.id && (
           <RecommendedMovies className={"order-4 mt-6"} movieId={movie.id} />
         )}
-
-        {/* similar movies */}
-        {movie?.id && (
-          <SimilarMovies className={"order-4 mt-6"} movieId={movie.id} />
-        )}
       </div>
     </motion.div>
   );

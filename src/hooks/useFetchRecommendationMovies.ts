@@ -33,7 +33,7 @@ export const useFetchRecommendedMovies = (movieId: number | undefined) => {
         }
       );
 
-      setRecommendedMovies(data.results?.slice(0, 5) || []);
+      setRecommendedMovies(data.results?.slice(0, 8) || []);
     } catch (err) {
       setError(
         err instanceof Error

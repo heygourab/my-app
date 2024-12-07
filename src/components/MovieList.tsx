@@ -13,7 +13,7 @@ type MovieCategoryProps = {
 const MovieList = (props: MovieCategoryProps) => {
   const { isSubtitleShow = true } = props;
   return (
-    <div className="mt-8">
+    <div className="">
       {isSubtitleShow ? (
         <h2 className="flex items-end gap-4 font-normal text-white ">
           <span>
