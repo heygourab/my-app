@@ -2,15 +2,18 @@ import { MovieType } from "types";
 import MovieList from "../MovieList";
 import { useFetchRecommendedMovies } from "@/hooks/useFetchRecommendationMovies";
 
-export const RecommendedMovies = ({
-  movieId,
+const RecommendedMovies = ({
+  movie,
   className,
 }: {
-  movieId: MovieType["id"];
+  movie: MovieType;
   className: string;
 }) => {
-  const { recommendedMovies, loading, error } =
-    useFetchRecommendedMovies(movieId ?? undefined);
+  console.log(movie?.id);
+  const { recommendedMovies, loading, error } = useFetchRecommendedMovies({
+    movieId: movie?.id,
+    movieLanguage: movie?.original_language,
+  });
 
   if (loading) {
     return <p>Loading...</p>;
@@ -21,16 +24,20 @@ export const RecommendedMovies = ({
   }
 
   return (
-    <section className={className}>
-      <h3 className="text-2xl text-neutral-200 font-bold">
-        Recommended Movies —
-      </h3>
-      <MovieList
-        name={""}
-        movies={recommendedMovies}
-        isSubtitleShow={false}
-        onCardClick={() => {}}
-      />
-    </section>
+    recommendedMovies.length > 0 && (
+      <section className={className}>
+        <h3 className="text-2xl text-neutral-200 font-bold">
+          Recommended Movies —
+        </h3>
+        <MovieList
+          name={""}
+          movies={recommendedMovies}
+          isSubtitleShow={false}
+          onCardClick={() => {}}
+        />
+      </section>
+    )
   );
 };
+
+export default RecommendedMovies;

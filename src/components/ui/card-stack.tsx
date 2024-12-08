@@ -70,15 +70,7 @@ export const CardStack = ({
               .join(" ")}
             ...
           </div>
-          <div className="flex items-center gap-x-4">
-            <Avatar>
-              <AvatarImage
-                className="flex-shrink-0 rounded-full size-10"
-                src="https://www.themoviedb.org/t/p/w64_and_h64_face/klZ9hebmc8biG1RC4WmzNFnciJN.jpg"
-                alt="avatar"
-              />
-              <AvatarFallback>💭</AvatarFallback>
-            </Avatar>
+          <div className=" items-center">
             <div>
               <p className="text-neutral-400 font-medium">
                 {card.author_details.name.length >= 3

@@ -6,11 +6,13 @@ export const MovieReviews = ({
   loading,
   error,
   title = "Movie Reviews —",
+  className,
 }: {
   reviews: Review[];
   loading: boolean;
   error: string | null;
   title?: string;
+  className?: string;
 }) => {
   if (loading) {
     return <div>Loading...</div>;
@@ -21,7 +23,7 @@ export const MovieReviews = ({
   }
 
   return (
-    <section className="flex flex-col mt-4">
+    <section className={`flex flex-col mt-4 ${className}`}>
       <h3 className="text-2xl text-neutral-200 font-semibold mb-12">{title}</h3>
       <CardStack
         className="border backdrop-blur-md md:w-3/4

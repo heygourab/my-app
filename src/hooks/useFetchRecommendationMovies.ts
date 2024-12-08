@@ -2,7 +2,13 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { MovieType } from "types";
 
-export const useFetchRecommendedMovies = (movieId: number | undefined) => {
+export const useFetchRecommendedMovies = ({
+  movieId,
+  movieLanguage,
+}: {
+  movieId: number | undefined;
+  movieLanguage: string | undefined;
+}) => {
   const [recommendedMovies, setRecommendedMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +39,11 @@ export const useFetchRecommendedMovies = (movieId: number | undefined) => {
         }
       );
 
-      setRecommendedMovies(data.results?.slice(0, 8) || []);
+      const filteredData = data.results?.filter(
+        (data: MovieType) => data.original_language === movieLanguage
+      );
+
+      setRecommendedMovies(filteredData || []);
     } catch (err) {
       setError(
         err instanceof Error

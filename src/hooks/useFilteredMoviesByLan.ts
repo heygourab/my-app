@@ -24,7 +24,7 @@ export const useFilteredMoviesByLanguage = (
         setLoading(true);
         setError(null); // Reset error before fetching
         const response = await axios.get(
-          `${BASE_URL}/discover/movie?include_adult=false&include_video=true&page=1&sort_by=popularity.desc&with_original_language=${language}&api_key=${API_KEY}`
+          `${BASE_URL}/discover/movie?include_adult=true&include_video=true&page=1&sort_by=popularity.desc&with_original_language=${language}&api_key=${API_KEY}`
         );
 
         const movies = response.data.results || [];

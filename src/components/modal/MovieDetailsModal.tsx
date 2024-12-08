@@ -2,19 +2,15 @@ import { motion } from "framer-motion";
 import { useRef } from "react";
 import { MovieType, TVShow } from "types";
 import { X } from "lucide-react";
-import { MotionButton } from "@/components/MotionBotton"; // Fixed import path
-
+import { MotionButton } from "@/components/MotionBotton";
 import { PlayTrailer } from "@/components/PlayTrailer";
 import { CastList } from "@/components/CastList";
 import { useFetchMovieCredits } from "@/hooks/useFetchMovieCredits";
-
 import { ArrowDownIcon } from "@heroicons/react/16/solid";
-
 import { MovieReviews } from "@/components/MovieReviews";
 import { useFetchMovieReviews } from "@/hooks/useFetchMovieReviews";
 import { MovieInfo } from "./MovieInfo";
-import { SimilarMovies } from "./SimilarMovies";
-import { RecommendedMovies } from "./RecommenedMovies";
+import RecommendedMovies from "./RecommenedMovies";
 
 export const DetailsModal = ({
   movie,
@@ -25,16 +21,17 @@ export const DetailsModal = ({
   tvShow?: TVShow;
   onClose: () => void;
 }) => {
-  const { reviews, loading, error } = useFetchMovieReviews(
-    movie?.id || undefined
-  );
-
+  const {
+    reviews,
+    loading: reviewsLoading,
+    error: reviewsError,
+  } = useFetchMovieReviews(movie?.id);
+  const {
+    casts,
+    loading: castsLoading,
+    error: castsError,
+  } = useFetchMovieCredits({ movie_id: movie?.id });
   const scrollableRef = useRef<HTMLDivElement | null>(null);
-
-  // Fetch movie credits (casts)
-  const { casts } = useFetchMovieCredits({
-    movie_id: movie?.id,
-  });
 
   const handleScrollDown = () => {
     scrollableRef.current?.scrollBy({ top: 200, behavior: "smooth" });
@@ -42,7 +39,6 @@ export const DetailsModal = ({
 
   const content = movie || tvShow;
   const title = content?.title || content?.name || "Untitled";
-
   const posterPath = content?.poster_path
     ? `https://image.tmdb.org/t/p/w500/${content.poster_path}`
     : "";
@@ -78,33 +74,33 @@ export const DetailsModal = ({
           title={title}
         />
 
-        {/* Movie Info and Reviews */}
-        <section className="order-1 flex flex-col md:flex-col lg:flex-row ">
+        <section className="order-1 flex flex-col md:flex-col  lg:divide-x-2 lg:flex-row">
           <MovieInfo
             title={title}
             posterPath={posterPath}
             releaseDate={releaseDate}
             voteAverage={voteAverage}
             genreIds={movie?.genre_ids}
-            overview={movie ? movie.overview : ""}
+            overview={movie?.overview || ""}
           />
-          {movie?.id && reviews.length && (
-            <MovieReviews reviews={reviews} loading={loading} error={error} />
+          {movie?.id && reviews.length > 0 && (
+            <MovieReviews
+              reviews={reviews}
+              loading={reviewsLoading}
+              error={reviewsError}
+              className="sm:pl-4"
+            />
           )}
         </section>
 
-        {/* Cast Section */}
         <section className="mt-6 order-3">
           <h3 className="text-2xl text-neutral-200 font-bold">Movie Casts —</h3>
-          {loading && <p className="text-neutral-400">Loading casts...</p>}
-          {error && <p className="text-red-500">Failed to load casts.</p>}
-          {!loading && !error && <CastList casts={casts ?? []} />}
+          {castsLoading && <p className="text-neutral-400">Loading casts...</p>}
+          {castsError && <p className="text-red-500">Failed to load casts.</p>}
+          {!castsLoading && !castsError && <CastList casts={casts ?? []} />}
         </section>
 
-        {/* recommended movies */}
-        {movie?.id && (
-          <RecommendedMovies className={"order-4 mt-6"} movieId={movie.id} />
-        )}
+        {movie && <RecommendedMovies className="order-4 mt-6" movie={movie} />}
       </div>
     </motion.div>
   );

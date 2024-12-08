@@ -17,7 +17,7 @@ export const MovieInfo = ({
   title: string;
   genreIds?: number[];
 }) => (
-  <section className="flex mt-4 flex-col gap-4 sm:flex-row">
+  <section className="flex mt-4 flex-col gap-4 lg:pr-4 sm:flex-row">
     {posterPath && (
       <img
         src={posterPath}
