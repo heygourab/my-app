@@ -29,7 +29,7 @@ export const useMovies = (genreId: number) => {
           page: 1,
         },
       });
-      setMovies(response.data.results.slice(0, 14));
+      setMovies(response.data.results);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to fetch movies");
     } finally {

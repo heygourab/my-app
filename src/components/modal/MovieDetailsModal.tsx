@@ -10,7 +10,7 @@ import { ArrowDownIcon } from "@heroicons/react/16/solid";
 import { MovieReviews } from "@/components/MovieReviews";
 import { useFetchMovieReviews } from "@/hooks/useFetchMovieReviews";
 import { MovieInfo } from "./MovieInfo";
-import RecommendedMovies from "./RecommenedMovies";
+import { RecommendedMovies } from "./RecommenedMovies";
 import { SimilarMovies } from "./SimilarMovies";
 
 export const DetailsModal = ({

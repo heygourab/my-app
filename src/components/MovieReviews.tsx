@@ -1,5 +1,6 @@
 import { Review } from "types";
 import { CardStack } from "./ui/card-stack";
+import { LoadingIndicator } from "./LoadingIndicator";
 
 export const MovieReviews = ({
   reviews,
@@ -15,7 +16,7 @@ export const MovieReviews = ({
   className?: string;
 }) => {
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingIndicator />;
   }
 
   if (error) {

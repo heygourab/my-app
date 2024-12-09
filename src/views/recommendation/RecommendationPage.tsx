@@ -1,5 +1,5 @@
 import { MovieGenre } from "@/components/MovieGenre";
-import MovieList from "@/components/MovieList";
+
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { demoMoveList, placeHolderTexts } from "@/constants";
@@ -26,7 +26,7 @@ export const RecommendationPage = ({
 
   return (
     <AuroraBackground className="bg-slate-950 h-screen overflow-y-auto antialiased">
-      <div className="relative flex flex-col items-start w-full min-h-full px-6">
+      <div className="relative flex flex-col items-start w-full min-h-full mx-auto">
         {/* Search Bar Section */}
         <header className="w-full sticky top-0 z-10 pt-4">
           <PlaceholdersAndVanishInput
@@ -57,7 +57,7 @@ export const RecommendationPage = ({
                 loading="lazy"
               />
               <div className="flex flex-col">
-                <h1 className="text-8xl font-extrabold text-neutral-100">
+                <h1 className="text-6xl font-extrabold text-neutral-100">
                   {movie.title}
                 </h1>
                 <p className="text-xl mt-4 text-neutral-400">
@@ -68,20 +68,6 @@ export const RecommendationPage = ({
             </div>
           </AspectRatio>
         </main>
-        <div>
-          <h2 className="text-4xl font-bold tracking-normal text-white ">
-            Based on You Movie chouise we recommended —
-          </h2>
-          <MovieList
-            name={""}
-            movies={demoMoveList}
-            isSubtitleShow={false}
-            // on click based on this move recommendation open another recommendation page
-            onCardClick={function (movie: MovieType): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
-        </div>
       </div>
     </AuroraBackground>
   );

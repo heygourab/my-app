@@ -2,14 +2,13 @@ import { MovieType } from "types";
 import MovieList from "../MovieList";
 import { useFetchRecommendedMovies } from "@/hooks/useFetchRecommendationMovies";
 
-const RecommendedMovies = ({
+export const RecommendedMovies = ({
   movie,
   className,
 }: {
   movie: MovieType;
   className: string;
 }) => {
-  console.log(movie?.id);
   const { recommendedMovies, loading, error } = useFetchRecommendedMovies({
     movieId: movie?.id,
     movieLanguage: movie?.original_language,
@@ -39,5 +38,3 @@ const RecommendedMovies = ({
     )
   );
 };
-
-export default RecommendedMovies;

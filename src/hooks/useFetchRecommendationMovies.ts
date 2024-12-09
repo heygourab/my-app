@@ -53,7 +53,7 @@ export const useFetchRecommendedMovies = ({
     } finally {
       setLoading(false);
     }
-  }, [API_KEY, movieId]);
+  }, [API_KEY, movieId, movieLanguage]);
 
   useEffect(() => {
     fetchRecommendedMovies();
