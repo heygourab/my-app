@@ -3,13 +3,16 @@ import { MovieType } from "types";
 import MovieList from "../MovieList";
 
 export const SimilarMovies = ({
-  movieId,
+  movie,
   className,
 }: {
-  movieId: MovieType["id"];
+  movie: MovieType;
   className: string;
 }) => {
-  const { similarMovies, loading, error } = useFetchSimilarMovies(movieId);
+  const { similarMovies, loading, error } = useFetchSimilarMovies({
+    movieId: movie.id,
+    movieLanguage: movie.original_language,
+  });
 
   if (loading) {
     return <p>Loading...</p>;
@@ -20,16 +23,18 @@ export const SimilarMovies = ({
   }
 
   return (
-    <section className={className}>
-      <h3 className="text-2xl text-neutral-200 font-bold">Similar Movies —</h3>
-      <MovieList
-        name={""}
-        movies={similarMovies}
-        isSubtitleShow={false}
-        onCardClick={function (movie: MovieType): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
-    </section>
+    similarMovies.length > 0 && (
+      <section className={className}>
+        <h3 className="text-2xl text-neutral-200 font-bold">
+          Similar Movies —
+        </h3>
+        <MovieList
+          name={""}
+          movies={similarMovies}
+          isSubtitleShow={false}
+          onCardClick={() => {}}
+        />
+      </section>
+    )
   );
 };

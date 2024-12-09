@@ -11,6 +11,7 @@ import { MovieReviews } from "@/components/MovieReviews";
 import { useFetchMovieReviews } from "@/hooks/useFetchMovieReviews";
 import { MovieInfo } from "./MovieInfo";
 import RecommendedMovies from "./RecommenedMovies";
+import { SimilarMovies } from "./SimilarMovies";
 
 export const DetailsModal = ({
   movie,
@@ -101,6 +102,7 @@ export const DetailsModal = ({
         </section>
 
         {movie && <RecommendedMovies className="order-4 mt-6" movie={movie} />}
+        {movie && <SimilarMovies className="order-5 mt-6" movie={movie} />}
       </div>
     </motion.div>
   );

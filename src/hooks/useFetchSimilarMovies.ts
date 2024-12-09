@@ -2,11 +2,17 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { MovieType } from "types";
 
-export const useFetchSimilarMovies = (movieId: number | undefined) => {
+export const useFetchSimilarMovies = ({
+  movieId,
+  movieLanguage,
+}: {
+  movieId: MovieType["id"];
+  movieLanguage: MovieType["original_language"];
+}) => {
   const [similarMovies, setSimilarMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
   const BASE_URL = "https://api.themoviedb.org/3/movie";
 
@@ -30,7 +36,11 @@ export const useFetchSimilarMovies = (movieId: number | undefined) => {
         params: { api_key: API_KEY, page: 1 },
       });
 
-      setSimilarMovies(data.results?.slice(0, 8) || []);
+      const filteredData = data.results?.filter(
+        (data: MovieType) => data.original_language === movieLanguage
+      );
+
+      setSimilarMovies(filteredData || []);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to fetch similar movies"
