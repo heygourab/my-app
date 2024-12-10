@@ -3,19 +3,21 @@ import MovieList from "./movie/MovieList";
 import { useFetchRecommendedMovies } from "@/hooks/useFetchRecommendationMovies";
 
 export const RecommendedMovies = ({
-  movie,
+  movieId,
+  movieLanguage,
   className,
 }: {
-  movie: Movie;
+  movieId: Movie["id"];
+  movieLanguage: Movie["original_language"];
   className: string;
 }) => {
   const { recommendedMovies, loading, error } = useFetchRecommendedMovies({
-    movieId: movie?.id,
-    movieLanguage: movie?.original_language,
+    movieId: movieId,
+    movieLanguage: movieLanguage,
   });
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Loading recommendation...</p>;
   }
 
   if (error) {

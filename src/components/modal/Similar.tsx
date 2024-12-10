@@ -3,15 +3,17 @@ import { Movie } from "types";
 import MovieList from "./movie/MovieList";
 
 export const SimilarMovies = ({
-  movie,
+  movieId,
+  movieLanguage,
   className,
 }: {
-  movie: Movie;
+  movieId: Movie["id"];
+  movieLanguage: Movie["original_language"];
   className: string;
 }) => {
   const { similarMovies, loading, error } = useFetchSimilarMovies({
-    movieId: movie.id,
-    movieLanguage: movie.original_language,
+    movieId: movieId,
+    movieLanguage: movieLanguage,
   });
 
   if (loading) {
@@ -26,7 +28,7 @@ export const SimilarMovies = ({
     similarMovies.length > 0 && (
       <section className={className}>
         <h3 className="text-2xl text-neutral-200 font-bold">
-        
+          Similar Movies —
         </h3>
         <MovieList
           name={""}

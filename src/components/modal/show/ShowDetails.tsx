@@ -1,33 +1,51 @@
+import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { PlayTrailer } from "@/components/PlayTrailer";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { useFetchShowDetails } from "@/hooks/useFetchShowDetails";
+
 import { Show } from "types";
+import { ShowInfo } from "./ShowInfo";
+import { ShowReviews } from "./ShowReviews";
 
 export const ShowDetails = ({ show }: { show: Show }) => {
-  
+  const { showDetails, loading, error } = useFetchShowDetails(show.id);
+
+  if (loading) {
+    return <LoadingIndicator title="Loading show details..." />;
+  }
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
+
+  console.log(showDetails);
   return (
-    <div className="sm:mt-8 flex flex-col">
-      <PlayTrailer
-        className="order-2 mt-8 sm:mt-0 sm:order-1"
-        title={show.name}
-      />
-      <section className="order-1">
-        {show.poster_path && (
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`}
-            alt={`${show.name} Poster`}
-            className="w-48 h-64 rounded-3xl object-cover"
-            loading="lazy"
+    showDetails && (
+      <div className="sm:mt-8  flex flex-col">
+        <PlayTrailer
+          className="order-2 mt-4 sm:mt-0 sm:order-1"
+          title={showDetails.name ?? undefined}
+        />
+        <section className="order-1 sm:order-1 flex w-full flex-col md:flex-col lg:divide-x-2 lg:flex-row">
+          <ShowInfo
+            posterPath={showDetails.poster_path}
+            name={showDetails.name}
+            tagline={showDetails.tagline}
+            voteAverage={showDetails.vote_average}
+            firstAirDate={showDetails.first_air_date}
+            lastAirDate={showDetails.last_air_date}
+            overview={showDetails.overview}
+            genres={showDetails.genres}
+            createdBy={showDetails.created_by}
           />
-        )}
-        <h2 className="text-4xl text-neutral-200 font-bold">{show.name}</h2>
-        {show.overview && (
-          <TextGenerateEffect
-            className="font-normal"
-            textClassName="text-sm text-neutral-400"
-            words={show.overview}
-          />
-        )}
-      </section>
-    </div>
+          {showDetails.id && (
+            <ShowReviews
+              id={show.id}
+              className="sm:pl-4 mt-8"
+              title={"Show Reviews"}
+            />
+          )}
+        </section>
+      </div>
+    )
   );
 };

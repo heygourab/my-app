@@ -3,13 +3,16 @@ import { PlayTrailer } from "@/components/PlayTrailer";
 import { useFetchMovieDetails } from "@/hooks/useFetchMovieDetails";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { MovieInfo } from "./MovieInfo";
-import { MovieReviews } from "../Reviews";
+import { MovieReviews } from "./MovieReviews";
+import { RecommendedMovies } from "../Recommened";
+import { SimilarMovies } from "../Similar";
+import { CastList } from "@/components/CastList";
 
 export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
   const { movieDetails, loading, error } = useFetchMovieDetails(movie.id);
 
   if (loading) {
-    return <LoadingIndicator />;
+    return <LoadingIndicator title="Loading movie details..." />;
   }
 
   if (error) {
@@ -33,11 +36,33 @@ export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
             genres={movieDetails.genres}
             tagline={movieDetails.tagline ?? undefined}
           />
-          {movie.id && (
-            <MovieReviews movieId={movie.id} className="sm:pl-4 mt-8" />
+          {movieDetails.id && (
+            <MovieReviews
+              id={movie.id}
+              className="sm:pl-4 mt-8"
+              title={"Movie Reviews"}
+            />
           )}
         </section>
-        
+
+        <section className="order-3 mt-8">
+          <h3 className={`text-2xl text-neutral-200 font-semibold`}>
+            Movie casts —
+          </h3>
+          <CastList movieId={movieDetails.id} />
+        </section>
+
+        <RecommendedMovies
+          movieId={movieDetails.id}
+          movieLanguage={movieDetails.original_language}
+          className={"order-4 mt-8"}
+        />
+
+        <SimilarMovies
+          movieId={movieDetails.id}
+          movieLanguage={movieDetails.original_language}
+          className={"order-5 mt-8"}
+        />
       </div>
     )
   );

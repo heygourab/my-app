@@ -1,17 +1,19 @@
-import { CardStack } from "../ui/card-stack";
-import { LoadingIndicator } from "../LoadingIndicator";
+import { CardStack } from "../../ui/card-stack";
+import { LoadingIndicator } from "../../LoadingIndicator";
 import { useFetchMovieReviews } from "@/hooks/useFetchMovieReviews";
 
 export const MovieReviews = ({
-  movieId,
+  id,
+  title,
   className,
 }: {
-  movieId: number;
+  id: number;
+  title?: string;
   className?: string;
 }) => {
-  const { reviews, loading, error } = useFetchMovieReviews(movieId);
+  const { reviews, loading, error } = useFetchMovieReviews(id);
   if (loading) {
-    return <LoadingIndicator />;
+    return <LoadingIndicator title="Loading movie reviews..." />;
   }
 
   if (error) {
@@ -27,7 +29,7 @@ export const MovieReviews = ({
             reviews.length > 3 ? "mb-12" : "mb-4"
           }`}
         >
-          Movie Reviews
+          {title ?? "Movie reviews"}
         </h3>
         <CardStack
           className="border backdrop-blur-md md:w-3/4

@@ -1,9 +1,9 @@
+import { useFetchMovieCredits } from "@/hooks/useFetchMovieCredits";
 import { motion } from "framer-motion";
 import React from "react";
-import { Cast } from "types";
-interface MovieListProps {
-  casts: Cast[];
-}
+import { Cast, Movie } from "types";
+import { LoadingIndicator } from "./LoadingIndicator";
+import { Poster } from "./Poster";
 
 const castItemVariants = {
   hidden: { opacity: 0, x: 50 },
@@ -27,12 +27,7 @@ const CastItem = React.memo(({ cast }: { cast: Cast }) => (
     transition={{ duration: 0.5 }}
   >
     <div className="w-48 h-64 mr-6">
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`}
-        alt={`${cast.name} poster`}
-        className="w-full h-64 rounded-3xl object-cover"
-        loading="lazy"
-      />
+      <Poster title={cast.name} posterPath={cast.profile_path} />
       <div>
         <h3 className="truncate text-base mt-2 font-medium tracking-wide capitalize text-white">
           {cast.name}
@@ -45,17 +40,32 @@ const CastItem = React.memo(({ cast }: { cast: Cast }) => (
   </motion.div>
 ));
 
-export const CastList = ({ casts }: MovieListProps) => (
-  <div className="mt-4">
-    <motion.div
-      className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-4"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      {casts.map((cast) => (
-        <CastItem key={cast.id} cast={cast} />
-      ))}
-    </motion.div>
-  </div>
-);
+export const CastList = ({ movieId }: { movieId: Required<Movie>["id"] }) => {
+  const { casts, loading, error } = useFetchMovieCredits({
+    movie_id: movieId,
+  }) as { casts: Cast[]; loading: boolean; error: string | null };
+
+  if (loading) {
+    return <LoadingIndicator title="Loading movie casts..." />;
+  }
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
+  return (
+    casts && (
+      <div className="mt-4">
+        <motion.div
+          className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-4"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          {casts?.map((cast) => (
+            <CastItem key={cast.id} cast={cast} />
+          ))}
+        </motion.div>
+      </div>
+    )
+  );
+};

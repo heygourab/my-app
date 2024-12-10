@@ -1,6 +1,7 @@
 import { StarIcon } from "@heroicons/react/16/solid";
 import { TextGenerateEffect } from "../../ui/text-generate-effect";
 import { Genre } from "types";
+import { Poster } from "@/components/Poster";
 
 export const MovieInfo = ({
   posterPath,
@@ -19,20 +20,13 @@ export const MovieInfo = ({
   genres?: Genre[];
   tagline?: string | undefined;
 }) => (
-  <section className="flex mt-4 flex-col gap-4 lg:pr-4 sm:flex-row">
-    {posterPath && (
-      <img
-        src={`https://image.tmdb.org/t/p/w500/${posterPath}`}
-        alt={`${title} Poster`}
-        className="w-48 h-64  rounded-3xl object-cover"
-        loading="lazy"
-      />
-    )}
+  <section className="flex sm:mt-4 flex-col gap-4 lg:pr-4 sm:flex-row">
+    {posterPath && title && <Poster title={title} posterPath={posterPath} />}
     <div>
       <h2 className="text-4xl tracking-wide  text-neutral-200 font-bold">
         {title}
       </h2>
-      <p className="text-sm text-neutral-400 font-serif">{tagline}</p>
+      <p className="text-sm text-neutral-400">{tagline}</p>
       <div className="flex font-bold text-lg  items-center gap-1 divide-x-2 divide-neutral-400  mt-4">
         {voteAverage && (
           <div className="flex items-center gap-2 pr-4">
