@@ -2,7 +2,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Review } from "types";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 
 export const CardStack = ({
   items,
