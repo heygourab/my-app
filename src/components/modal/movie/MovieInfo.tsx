@@ -11,6 +11,8 @@ export const MovieInfo = ({
   title,
   genres,
   tagline,
+  budget,
+  revenue,
 }: {
   posterPath?: string | undefined;
   voteAverage?: number | undefined;
@@ -19,11 +21,13 @@ export const MovieInfo = ({
   title: string | undefined;
   genres?: Genre[];
   tagline?: string | undefined;
+  budget?: number;
+  revenue?: number;
 }) => (
   <section className="flex sm:mt-4 flex-col gap-4 lg:pr-4 sm:flex-row">
     {posterPath && title && <Poster title={title} posterPath={posterPath} />}
     <div>
-      <h2 className="text-4xl tracking-wide  text-neutral-200 font-bold">
+      <h2 className="text-4xl tracking-wide sm:text-5xl  text-neutral-200 font-bold">
         {title}
       </h2>
       <p className="text-sm text-neutral-400">{tagline}</p>
@@ -43,12 +47,38 @@ export const MovieInfo = ({
           textClassName="text-sm text-neutral-400"
         />
       )}
+
+      <div className="flex divide-x-2 gap-2 ">
+        {budget && (
+          <p className="font-semibold text-neutral-200  text-lg mt-4">
+            Budget:{" "}
+            <span className="text-neutral-400">
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(budget)}
+            </span>
+          </p>
+        )}
+        {revenue && (
+          <p className=" pl-2 font-semibold text-neutral-200 text-lg mt-4">
+            Revenue:{" "}
+            <span className="text-neutral-400">
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(revenue)}
+            </span>
+          </p>
+        )}
+      </div>
+
       {genres && (
         <div className="flex mt-4 gap-2 w-full flex-wrap">
           {genres.map((genre) => (
             <span
               key={genre.id}
-              className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs backdrop-blur"
+              className="inline-block px-3 py-2 bg-white/20 text-white rounded-full text-xs backdrop-blur-sm"
             >
               {genre.name}
             </span>

@@ -35,6 +35,8 @@ export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
             overview={movieDetails.overview ?? ""}
             genres={movieDetails.genres}
             tagline={movieDetails.tagline ?? undefined}
+            budget={movieDetails.budget}
+            revenue= {movieDetails.revenue}
           />
           {movieDetails.id && (
             <MovieReviews
