@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Language, MovieType, TVShow } from "types";
+import { SpokenLanguage, Movie, Show } from "types";
 
 export const useHomePageState = () => {
   const [selectedGenreId, setSelectedGenreId] = useState<number>(28);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const [selectedMovie, setSelectedMovie] = useState<MovieType | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [selectedTvShow, setSelectedTvShow] = useState<TVShow | null>(null);
+  const [selectedTvShow, setSelectedTvShow] = useState<Show | null>(null);
 
-  const [selectedMovieLanguage, setSelectedMovieLanguage] = useState<Language>({
+  const [selectedMovieLanguage, setSelectedMovieLanguage] = useState<SpokenLanguage>({
     english_name: "English",
     iso_639_1: "en",
     name: "English",

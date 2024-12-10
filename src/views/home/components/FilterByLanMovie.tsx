@@ -1,5 +1,5 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
-import { Language, Movie } from "types";
+import { SpokenLanguage, Movie } from "types";
 import MovieList from "@/components/modal/movie/MovieList";
 
 export const FilterByLanMovie = ({
@@ -12,13 +12,13 @@ export const FilterByLanMovie = ({
   onCardClick,
   error,
 }: {
-  languages: Language[];
+  languages: SpokenLanguage[];
   filterMoviesByLanguage: Movie[];
-  selectedMovieLanguage: Language["iso_639_1"];
-  handleLanClick: (iso_639_1: Language["iso_639_1"]) => void;
+  selectedMovieLanguage: SpokenLanguage["iso_639_1"];
+  handleLanClick: (iso_639_1: SpokenLanguage["iso_639_1"]) => void;
   loading: boolean;
   selectedLanguage: string;
-  originalLanguage: Language["name"];
+  originalLanguage: SpokenLanguage["name"];
   onCardClick: (movie: Movie) => void;
   error?: string | null;
 }) => {

@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
-import { Review } from "types";
 
 export const useFetchMovieReviews = (movieId: number | undefined) => {
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviews, setReviews] = useState<[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

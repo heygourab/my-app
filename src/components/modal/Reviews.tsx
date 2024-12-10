@@ -1,20 +1,15 @@
-import { Review } from "types";
 import { CardStack } from "../ui/card-stack";
 import { LoadingIndicator } from "../LoadingIndicator";
+import { useFetchMovieReviews } from "@/hooks/useFetchMovieReviews";
 
 export const MovieReviews = ({
-  reviews,
-  loading,
-  error,
-  title = "",
+  movieId,
   className,
 }: {
-  reviews: Review[];
-  loading: boolean;
-  error: string | null;
-  title?: string;
+  movieId: number;
   className?: string;
 }) => {
+  const { reviews, loading, error } = useFetchMovieReviews(movieId);
   if (loading) {
     return <LoadingIndicator />;
   }
@@ -24,15 +19,22 @@ export const MovieReviews = ({
   }
 
   return (
-    <section className={`flex flex-col mt-4 ${className}`}>
-      <h3 className={`text-2xl text-neutral-200 font-semibold mb-12`}>
-        {title}
-      </h3>
-      <CardStack
-        className="border backdrop-blur-md md:w-3/4
+    reviews &&
+    reviews.length > 0 && (
+      <section className={`flex flex-col mt-4 ${className}`}>
+        <h3
+          className={`text-2xl text-neutral-200 font-semibold ${
+            reviews.length > 3 ? "mb-12" : "mb-4"
+          }`}
+        >
+          Movie Reviews
+        </h3>
+        <CardStack
+          className="border backdrop-blur-md md:w-3/4
           border-neutral-400 w-full"
-        items={reviews}
-      />
-    </section>
+          items={reviews}
+        />
+      </section>
+    )
   );
 };

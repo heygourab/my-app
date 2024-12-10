@@ -1,15 +1,15 @@
-import { Language, MovieType, TVShow } from "types";
+import { SpokenLanguage, Movie, Show } from "types";
 import { useMemo } from "react";
 import { genres } from "@/data/movieGenereData.json";
 import { languages } from "@/data/languageData.json";
 
 export const useHomePageHandlers = (state: {
   setSelectedGenreId: (id: number) => void;
-  setSelectedMovieLanguage: (language: Language) => void;
+  setSelectedMovieLanguage: (language: SpokenLanguage) => void;
   setSearchQuery: (query: string) => void;
-  setSelectedMovie: (movie: MovieType | null) => void;
+  setSelectedMovie: (movie: Movie | null) => void;
   setIsModalOpen: (isOpen: boolean) => void;
-  setSelectedTvShow: (tvShow: TVShow | null) => void;
+  setSelectedTvShow: (tvShow: Show | null) => void;
   selectedGenreId: number;
 }) => {
   const {
@@ -50,12 +50,12 @@ export const useHomePageHandlers = (state: {
     }
   };
 
-  const handleMovieClick = (movie: MovieType) => {
+  const handleMovieClick = (movie: Movie) => {
     setSelectedMovie(movie);
     setIsModalOpen(true);
   };
 
-  const handleTvShowClick = (tvShow: TVShow) => {
+  const handleTvShowClick = (tvShow: Show) => {
     setSelectedTvShow(tvShow);
     setIsModalOpen(true);
   };

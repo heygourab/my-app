@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Language, Movie } from "types";
+import { Movie, SpokenLanguage } from "types";
 
 export const useFilteredMoviesByLanguage = (
-  language: Language["iso_639_1"]
+  language: SpokenLanguage["iso_639_1"]
 ) => {
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

@@ -1,6 +1,6 @@
 import { StarIcon } from "@heroicons/react/16/solid";
 import { TextGenerateEffect } from "../../ui/text-generate-effect";
-import { genres } from "@/data/movieGenereData.json";
+import { Genre } from "types";
 
 export const MovieInfo = ({
   posterPath,
@@ -8,14 +8,16 @@ export const MovieInfo = ({
   releaseDate,
   overview,
   title,
-  genreIds,
+  genres,
+  tagline,
 }: {
-  posterPath?: string;
-  voteAverage?: number;
-  releaseDate?: string;
-  overview?: string;
-  title: string;
-  genreIds?: number[];
+  posterPath?: string | undefined;
+  voteAverage?: number | undefined;
+  releaseDate?: string | undefined;
+  overview?: string | undefined;
+  title: string | undefined;
+  genres?: Genre[];
+  tagline?: string | undefined;
 }) => (
   <section className="flex mt-4 flex-col gap-4 lg:pr-4 sm:flex-row">
     {posterPath && (
@@ -30,14 +32,15 @@ export const MovieInfo = ({
       <h2 className="text-4xl tracking-wide  text-neutral-200 font-bold">
         {title}
       </h2>
-      <div className="flex font-bold items-center gap-2 divide-x-2 divide-neutral-400 text-base mt-2">
+      <p className="text-sm text-neutral-400 font-serif">{tagline}</p>
+      <div className="flex font-bold text-lg  items-center gap-1 divide-x-2 divide-neutral-400  mt-4">
         {voteAverage && (
           <div className="flex items-center gap-2 pr-4">
             <StarIcon className="size-5 text-yellow-400" />
-            <p className="text-neutral-400">{voteAverage.toFixed(1)} / 10</p>
+            <p className="text-neutral-200">{voteAverage.toFixed(1)} / 10</p>
           </div>
         )}
-        {releaseDate && <p className="pl-4 text-neutral-400">{releaseDate}</p>}
+        {releaseDate && <p className="pl-4 text-neutral-200">{releaseDate}</p>}
       </div>
       {overview && (
         <TextGenerateEffect
@@ -46,21 +49,18 @@ export const MovieInfo = ({
           textClassName="text-sm text-neutral-400"
         />
       )}
-      <div className="flex mt-4 gap-2 w-full flex-wrap">
-        {genreIds?.map((id) => {
-          const genre = genres.find((g) => g.id === id);
-          return (
-            genre && (
-              <span
-                key={id}
-                className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs"
-              >
-                {genre.name}
-              </span>
-            )
-          );
-        })}
-      </div>
+      {genres && (
+        <div className="flex mt-4 gap-2 w-full flex-wrap">
+          {genres.map((genre) => (
+            <span
+              key={genre.id}
+              className="inline-block px-3 py-2 bg-white/10 text-white rounded-full text-xs backdrop-blur"
+            >
+              {genre.name}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 );

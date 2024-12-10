@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Movie, MovieDetails } from "types";
 
 export const useFetchMovieDetails = (id: Movie["id"]) => {
-  const [movieDetails, setMovieDetails] = useState<Movie | null>(null);
+  const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

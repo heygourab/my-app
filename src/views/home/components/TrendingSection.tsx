@@ -1,7 +1,7 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import MovieList from "../../../components/modal/movie/MovieList";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { Genres, Movie } from "types";
+import { Genre, Movie } from "types";
 
 export const TendingSection = ({
   genres,
@@ -12,7 +12,7 @@ export const TendingSection = ({
   selectedGenre,
   onCardClick,
 }: {
-  genres: Genres[];
+  genres: Genre[];
   movies: Movie[];
   selectedGenreId: number;
   handleGenreClick: (id: number) => void;

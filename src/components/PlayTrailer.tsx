@@ -6,7 +6,7 @@ export const PlayTrailer = ({
   title,
   className,
 }: {
-  title: string;
+  title: string | undefined;
   className?: string;
 }) => {
   const { iframeUrl, loading, error } = useFetchMovieTrailer(title || "");
