@@ -1,6 +1,6 @@
 import { useFetchSimilarMovies } from "@/hooks/useFetchSimilarMovies";
 import { Movie } from "types";
-import MovieList from "./movie/MovieList";
+import MovieList from "./MovieList";
 
 export const SimilarMovies = ({
   movieId,

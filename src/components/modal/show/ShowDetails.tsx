@@ -20,7 +20,7 @@ export const ShowDetails = ({ show }: { show: Show }) => {
   console.log(showDetails);
   return (
     showDetails && (
-      <div className="sm:mt-8  flex flex-col">
+      <div className="sm:mt-8 flex flex-col">
         <PlayTrailer
           className="order-2 mt-4 sm:mt-0 sm:order-1"
           title={showDetails.name ?? undefined}
@@ -45,6 +45,31 @@ export const ShowDetails = ({ show }: { show: Show }) => {
             />
           )}
         </section>
+        {showDetails.created_by && (
+          <section className="order-3">
+            <h3 className="text-xl font-semibold text-white mt-8">
+              Created By
+            </h3>
+            <div className="overflow-x-auto whitespace-nowrap scrollbar-hide mb-4">
+              <div className="flex gap-4 mt-4">
+                {showDetails.created_by.map((creator) => (
+                  <div key={creator.id} className="inline-block">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500/${creator.profile_path}`}
+                      alt={`${creator.name} poster`}
+                      className="w-48 h-64 rounded-3xl object-cover"
+                      loading="lazy"
+                    />
+
+                    <p className="truncate text-base text-center mt-2 font-medium tracking-wide capitalize text-neutral-200">
+                      {creator.name}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </div>
     )
   );

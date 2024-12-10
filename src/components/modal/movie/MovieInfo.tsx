@@ -49,25 +49,29 @@ export const MovieInfo = ({
       )}
 
       <div className="flex divide-x-2 gap-2 ">
-        {budget && (
-          <p className="font-semibold text-neutral-200  text-lg mt-4">
+        {budget !== undefined && (
+          <p className="font-semibold text-neutral-200 text-lg mt-4">
             Budget:{" "}
             <span className="text-neutral-400">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(budget)}
+              {budget === 0
+                ? "Unknown"
+                : new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(budget)}
             </span>
           </p>
         )}
-        {revenue && (
-          <p className=" pl-2 font-semibold text-neutral-200 text-lg mt-4">
+        {revenue !== undefined && (
+          <p className="pl-2 font-semibold text-neutral-200 text-lg mt-4">
             Revenue:{" "}
             <span className="text-neutral-400">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(revenue)}
+              {revenue === 0
+                ? "Unknown"
+                : new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(revenue)}
             </span>
           </p>
         )}

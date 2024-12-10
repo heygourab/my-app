@@ -4,8 +4,8 @@ import { useFetchMovieDetails } from "@/hooks/useFetchMovieDetails";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { MovieInfo } from "./MovieInfo";
 import { MovieReviews } from "./MovieReviews";
-import { RecommendedMovies } from "../Recommened";
-import { SimilarMovies } from "../Similar";
+import { RecommendedMovies } from "./Recommened";
+import { SimilarMovies } from "./Similar";
 import { CastList } from "@/components/CastList";
 
 export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
@@ -36,7 +36,7 @@ export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
             genres={movieDetails.genres}
             tagline={movieDetails.tagline ?? undefined}
             budget={movieDetails.budget}
-            revenue= {movieDetails.revenue}
+            revenue={movieDetails.revenue}
           />
           {movieDetails.id && (
             <MovieReviews

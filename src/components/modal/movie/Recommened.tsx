@@ -1,6 +1,7 @@
 import { Movie } from "types";
-import MovieList from "./movie/MovieList";
+
 import { useFetchRecommendedMovies } from "@/hooks/useFetchRecommendationMovies";
+import MovieList from "./MovieList";
 
 export const RecommendedMovies = ({
   movieId,
