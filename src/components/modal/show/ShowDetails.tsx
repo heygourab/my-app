@@ -3,7 +3,7 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { Show } from "types";
 
 export const ShowDetails = ({ show }: { show: Show }) => {
-  console.log(show);
+  
   return (
     <div className="sm:mt-8 flex flex-col">
       <PlayTrailer

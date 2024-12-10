@@ -10,6 +10,9 @@ export const useFetchMovieDetails = (id: Movie["id"]) => {
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
+      if (!API_KEY) {
+        throw new Error("TMDB API key not set");
+      }
       try {
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
