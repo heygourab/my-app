@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useState, useEffect, useCallback } from "react";
-import { Cast, MovieType } from "types";
+import { Cast, Movie} from "types";
 
 export const useFetchMovieCredits = ({
   movie_id,
 }: {
-  movie_id: MovieType["id"];
+  movie_id: Movie["id"];
 }) => {
   const [casts, setCasts] = useState<Cast[] | null>(null);
   const [loading, setLoading] = useState(false);

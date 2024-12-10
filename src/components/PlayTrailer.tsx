@@ -1,13 +1,12 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useFetchMovieTrailer } from "@/hooks/useFetchTrailer";
-import { MovieType, TVShow } from "types";
 
 export const PlayTrailer = ({
   title,
   className,
 }: {
-  title: MovieType["title"] | TVShow["name"];
+  title: string;
   className?: string;
 }) => {
   const { iframeUrl, loading, error } = useFetchMovieTrailer(title || "");

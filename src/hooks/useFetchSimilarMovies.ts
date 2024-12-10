@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { MovieType } from "types";
+import { Movie } from "types";
 
 export const useFetchSimilarMovies = ({
   movieId,
   movieLanguage,
 }: {
-  movieId: MovieType["id"];
-  movieLanguage: MovieType["original_language"];
+  movieId: Movie["id"];
+  movieLanguage: Movie["original_language"];
 }) => {
-  const [similarMovies, setSimilarMovies] = useState<MovieType[]>([]);
+  const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -37,7 +37,7 @@ export const useFetchSimilarMovies = ({
       });
 
       const filteredData = data.results?.filter(
-        (data: MovieType) => data.original_language === movieLanguage
+        (data: Movie) => data.original_language === movieLanguage
       );
 
       setSimilarMovies(filteredData || []);
@@ -48,7 +48,7 @@ export const useFetchSimilarMovies = ({
     } finally {
       setLoading(false);
     }
-  }, [API_KEY, movieId]);
+  }, [API_KEY, movieId, movieLanguage]);
 
   useEffect(() => {
     fetchSimilarMovies();

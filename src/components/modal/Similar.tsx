@@ -1,12 +1,12 @@
 import { useFetchSimilarMovies } from "@/hooks/useFetchSimilarMovies";
-import { MovieType } from "types";
-import MovieList from "../MovieList";
+import { Movie } from "types";
+import MovieList from "./movie/MovieList";
 
 export const SimilarMovies = ({
   movie,
   className,
 }: {
-  movie: MovieType;
+  movie: Movie;
   className: string;
 }) => {
   const { similarMovies, loading, error } = useFetchSimilarMovies({
@@ -26,7 +26,7 @@ export const SimilarMovies = ({
     similarMovies.length > 0 && (
       <section className={className}>
         <h3 className="text-2xl text-neutral-200 font-bold">
-          Similar Movies —
+        
         </h3>
         <MovieList
           name={""}

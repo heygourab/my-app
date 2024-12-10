@@ -1,7 +1,7 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
-import MovieList from "../../../components/MovieList";
+import MovieList from "../../../components/modal/movie/MovieList";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { Genres, MovieType } from "types";
+import { Genres, Movie } from "types";
 
 export const TendingSection = ({
   genres,
@@ -13,12 +13,12 @@ export const TendingSection = ({
   onCardClick,
 }: {
   genres: Genres[];
-  movies: MovieType[];
+  movies: Movie[];
   selectedGenreId: number;
   handleGenreClick: (id: number) => void;
   loading: boolean;
   selectedGenre: string;
-  onCardClick: (movie: MovieType) => void;
+  onCardClick: (movie: Movie) => void;
 }) => {
   const words =
     "Discover the latest and greatest movies across various genres — ";

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { MovieType } from "types";
+import { Movie} from "types";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -13,8 +13,8 @@ export const Hero = React.memo(
     movies,
     onClick,
   }: {
-    movies: MovieType[];
-    onClick: (movie: MovieType) => void;
+    movies: Movie[];
+    onClick: (movie: Movie) => void;
   }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 

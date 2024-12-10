@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { TVShow } from "types";
+import { Show } from "types";
 
 export const useTrendingTVShows = (page = 1) => {
-  const [shows, setShows] = useState<TVShow[]>([]);
+  const [shows, setShows] = useState<Show[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [totalPages, setTotalPages] = useState(0);

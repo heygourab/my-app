@@ -1,10 +1,10 @@
-import { MovieType } from "types";
+import { Movie } from "types";
 import { genres } from "@/data/movieGenereData.json";
 
 export const MovieGenre = ({
   genresList,
 }: {
-  genresList: MovieType["genre_ids"];
+  genresList: Movie["genre_ids"];
 }) => (
   <div className="flex mt-6 gap-2 w-full">
     {genresList?.map((id) => (

@@ -1,19 +1,19 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
-import type { MovieType } from "types";
+import type { Movie } from "types";
 
 export const useLatestMovies = () => {
-  const [newMovies, setNewMovies] = useState<MovieType[]>([]);
+  const [newMovies, setNewMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const API_KEY = `${import.meta.env.VITE_TMDB_API_KEY}`;
-  const BASE_URL = "https://api.themoviedb.org/3";
+  const BASE_URL = "https://api.themoviedb.org/3/trending";
 
   const fetchNewlyReleasedMovies = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${BASE_URL}/movie/now_playing`, {
+      const response = await axios.get(`${BASE_URL}/movie/week`, {
         params: {
           api_key: API_KEY,
           language: "en-US",

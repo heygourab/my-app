@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Language, MovieType } from "types";
+import { Language, Movie } from "types";
 
 export const useFilteredMoviesByLanguage = (
   language: Language["iso_639_1"]
 ) => {
-  const [filteredMovies, setFilteredMovies] = useState<MovieType[]>([]);
+  const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,7 +29,7 @@ export const useFilteredMoviesByLanguage = (
 
         const movies = response.data.results || [];
         const filtered = movies.filter(
-          (movie: MovieType) => movie.original_language === language
+          (movie: Movie) => movie.original_language === language
         );
 
         setFilteredMovies(filtered);

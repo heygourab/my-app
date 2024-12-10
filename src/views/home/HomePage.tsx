@@ -12,7 +12,7 @@ import { Hero } from "@/views/home/components/Hero";
 import { TendingSection } from "./components/TrendingSection";
 import { TvShowSection } from "./components/TvShowSection";
 import { FilterByLanMovie } from "./components/FilterByLanMovie";
-import { DetailsModal } from "../../components/modal/MovieDetailsModal";
+import { DetailsModal } from "../../components/modal/DetailsModal";
 import { placeHolderTexts } from "@/constants";
 
 import { languages } from "@/data/languageData.json";
@@ -99,7 +99,7 @@ export const HomePage: React.FC = () => {
       {state.isModalOpen && (
         <DetailsModal
           movie={state.selectedMovie || undefined}
-          tvShow={state.selectedTvShow || undefined}
+          show={state.selectedTvShow || undefined}
           onClose={handlers.handleCloseModal}
         />
       )}

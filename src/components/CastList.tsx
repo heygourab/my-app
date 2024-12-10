@@ -26,7 +26,7 @@ const CastItem = React.memo(({ cast }: { cast: Cast }) => (
     variants={castItemVariants}
     transition={{ duration: 0.5 }}
   >
-    <div className="w-48 mr-6">
+    <div className="w-48 h-64 mr-6">
       <img
         src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`}
         alt={`${cast.name} poster`}

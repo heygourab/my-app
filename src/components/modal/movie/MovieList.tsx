@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
-import { MovieCard } from "./MovieCard";
-import { TextGenerateEffect } from "./ui/text-generate-effect";
-import { MovieType } from "types";
+import { MovieCard } from "../../MovieCard";
+import { TextGenerateEffect } from "../../ui/text-generate-effect";
+import { Movie } from "types";
 
 type MovieCategoryProps = {
   name: string;
-  movies: MovieType[];
-  onCardClick: (movie: MovieType) => void;
+  movies: Movie[];
+  onCardClick: (movie: Movie) => void;
   isSubtitleShow?: boolean;
 };
 
@@ -72,6 +72,16 @@ const MovieList = (props: MovieCategoryProps) => {
               name={""}
               first_air_date={""}
               onClick={() => props.onCardClick(movie)}
+              adult={false}
+              backdrop_path={""}
+              genre_ids={[]}
+              original_language={""}
+              overview={""}
+              popularity={0}
+              vote_count={0}
+              media_type={""}
+              origin_country={[]}
+              original_name={""}
             />
           </motion.div>
         ))}

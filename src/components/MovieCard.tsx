@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { memo } from "react";
-import { MovieType, TVShow } from "types";
+import { Movie, Show } from "types";
 
 export const MovieCard = memo(
   ({
@@ -12,7 +12,7 @@ export const MovieCard = memo(
     name,
     className = "",
     onClick,
-  }: MovieType & { className?: string; onClick?: () => void } & TVShow) => {
+  }: Movie & { className?: string; onClick?: () => void } & Show) => {
     const imgSrc = `https://image.tmdb.org/t/p/w500/${poster_path}`;
     const year = new Date(
       (release_date as string) ?? first_air_date

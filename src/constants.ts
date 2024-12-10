@@ -1,4 +1,4 @@
-import { MovieType } from "types";
+import { Movie } from "types";
 
 export const placeHolderTexts = [
   "What's your next binge? Type away, movie buff!",
@@ -13,7 +13,7 @@ export const placeHolderTexts = [
   "Search for a movie and let's make Hollywood jealous.",
 ];
 
-export const demoMoveList: MovieType[] = [
+export const demoMoveList: Movie[] = [
   {
     adult: false,
     backdrop_path: "/inJjDhCjfhh3RtrJWBmmDqeuSYC.jpg",

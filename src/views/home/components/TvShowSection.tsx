@@ -1,15 +1,15 @@
 import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { MovieCard } from "@/components/MovieCard";
-import { TVShow } from "types";
+import { Show } from "types";
 
 export const TvShowSection = ({
   shows,
   loading,
   onCardClick,
 }: {
-  shows: TVShow[];
+  shows: Show[];
   loading: boolean;
-  onCardClick: (movie: TVShow) => void;
+  onCardClick: (movie: Show) => void;
 }) => (
   <section className="w-full mt-10 pb-4">
     <h2 className="text-4xl text-white font-semibold tracking-wide">
