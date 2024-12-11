@@ -7,7 +7,14 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/recommendation/:id/*" element={<RecommendationPage />} />
+        <Route
+          path="/recommendation/:type/:id/*"
+          element={<RecommendationPage />}
+        />
+        <Route
+          path="*"
+          element={<div className="text-red-400">404 not found </div>}
+        />
       </Routes>
     </Router>
   );
