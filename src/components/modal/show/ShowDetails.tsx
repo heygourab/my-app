@@ -5,6 +5,7 @@ import { useFetchShowDetails } from "@/hooks/useFetchShowDetails";
 import { Show } from "types";
 import { ShowInfo } from "./ShowInfo";
 import { ShowReviews } from "./ShowReviews";
+import { RecommendedShow } from "./RecomenedShow";
 
 export const ShowDetails = ({ show }: { show: Show }) => {
   const { showDetails, loading, error } = useFetchShowDetails(show.id);
@@ -60,7 +61,6 @@ export const ShowDetails = ({ show }: { show: Show }) => {
                       className="w-48 h-64 rounded-3xl object-cover"
                       loading="lazy"
                     />
-
                     <p className="truncate text-base text-center mt-2 font-medium tracking-wide capitalize text-neutral-200">
                       {creator.name}
                     </p>
@@ -70,6 +70,12 @@ export const ShowDetails = ({ show }: { show: Show }) => {
             </div>
           </section>
         )}
+
+        <RecommendedShow
+          className="order-4"
+          showId={showDetails.id}
+          showLanguage={showDetails.original_language}
+        />
       </div>
     )
   );

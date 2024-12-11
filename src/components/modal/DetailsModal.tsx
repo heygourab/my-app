@@ -31,7 +31,7 @@ export const DetailsModal = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/65 backdrop-blur-xl flex items-center justify-center z-50 sm:p-12"
+      className="fixed inset-0 bg-black/65 backdrop-blur-2xl flex items-center justify-center z-50 sm:p-12"
       role="dialog"
       aria-modal="true"
     >

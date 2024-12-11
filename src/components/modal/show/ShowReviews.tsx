@@ -27,7 +27,7 @@ export const ShowReviews = ({
       <section className={`flex flex-col mt-4 ${className}`}>
         <h3
           className={`text-xl text-neutral-200 font-semibold ${
-            reviews.length > 3 ? "mb-12" : "mb-4"
+            reviews.length >= 3 ? "mb-12" : "mb-4"
           }`}
         >
           {title ?? "Movie reviews"}

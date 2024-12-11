@@ -12,7 +12,6 @@ export const ShowInfo = ({
   lastAirDate,
   overview,
   genres,
-  createdBy,
   className,
 }: {
   posterPath: ShowDetails["poster_path"];
@@ -37,12 +36,29 @@ export const ShowInfo = ({
           {name}
         </h2>
         {tagline && <p className="text-sm text-neutral-400">{tagline}</p>}
-        <div className="flex flex-col font-bold  items-start mt-4">
+        <div className="flex flex-col font-bold  items-start mt-2">
           {voteAverage && (
             <div className="flex items-center gap-2 pr-4">
               <StarIcon className="size-5 text-yellow-400" />
-              <p className="text-neutral-200">{voteAverage.toFixed(1)} / 10</p>
+              <p className="text-neutral-200 text-xl">
+                {voteAverage.toFixed(1)} / 10
+              </p>
             </div>
+          )}
+        </div>
+        <div className="flex divide-x-2 gap-2 mt-2">
+          {firstAirDate && (
+            <p className="text-base text-neutral-200 font-semibold">
+              {firstAirDate}
+            </p>
+          )}
+          {lastAirDate && (
+            <p className="text-base pl-2 text-neutral-200">
+              Last aired:{" "}
+              <span className="text-neutral-400 font-semibold">
+                {lastAirDate}
+              </span>
+            </p>
           )}
         </div>
         {overview && (
@@ -65,8 +81,7 @@ export const ShowInfo = ({
           </div>
         )}
       </div>
-
-      {}
+      
     </section>
   );
 };
