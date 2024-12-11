@@ -8,8 +8,12 @@ import { RecommendedMovies } from "./Recommened";
 import { SimilarMovies } from "./Similar";
 import { CastList } from "@/components/CastList";
 
+import { useNavigate } from "react-router-dom";
+
 export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
   const { movieDetails, loading, error } = useFetchMovieDetails(movie.id);
+
+  const navigate = useNavigate();
 
   if (loading) {
     return <LoadingIndicator title="Loading movie details..." />;
@@ -58,6 +62,9 @@ export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
           movieId={movieDetails.id}
           movieLanguage={movieDetails.original_language}
           className={"order-4 mt-8"}
+          onCardClick={() => {
+            navigate(`/recommendation/${movieDetails.title}`);
+          }}
         />
 
         <SimilarMovies

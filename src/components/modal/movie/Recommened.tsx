@@ -7,10 +7,12 @@ export const RecommendedMovies = ({
   movieId,
   movieLanguage,
   className,
+  onCardClick,
 }: {
   movieId: Movie["id"];
   movieLanguage: Movie["original_language"];
   className: string;
+  onCardClick: () => void;
 }) => {
   const { recommendedMovies, loading, error } = useFetchRecommendedMovies({
     movieId: movieId,
@@ -35,7 +37,7 @@ export const RecommendedMovies = ({
           name={""}
           movies={recommendedMovies}
           isSubtitleShow={false}
-          onCardClick={() => {}}
+          onCardClick={onCardClick}
         />
       </section>
     )

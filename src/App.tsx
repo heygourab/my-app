@@ -7,7 +7,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/recommendation/:id" element={<RecommendationPage />} />
+        <Route path="/recommendation/:id/*" element={<RecommendationPage />} />
       </Routes>
     </Router>
   );
