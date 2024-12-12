@@ -88,13 +88,13 @@ export const HomePage: React.FC = () => {
       {/* Modal Section */}
       {state.isModalOpen && (
         <DetailsModal
-          movie={state.selectedMovie || undefined}
-          show={state.selectedTvShow || undefined}
+          movieId={state.selectedMovie?.id}
+          showId={state.selectedTvShow?.id || undefined}
           onClose={handlers.handleCloseModal}
         />
       )}
       {/* Search Result Modal */}
-      <SearchModal onClick={() => {}} />
+      {/* <SearchModal title={title} onClick={() => {}} /> */}
     </AuroraBackground>
   );
 };

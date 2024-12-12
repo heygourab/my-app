@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useRef } from "react";
-import { Movie, Show } from "types";
 import { X } from "lucide-react";
 import { MotionButton } from "@/components/MotionBotton";
 
@@ -9,12 +8,12 @@ import { MovieDetails } from "./movie/MovieDetails";
 import { ShowDetails } from "./show/ShowDetails";
 
 export const DetailsModal = ({
-  movie,
-  show,
+  movieId,
+  showId,
   onClose,
 }: {
-  movie?: Movie;
-  show?: Show;
+  movieId: number | undefined;
+  showId?: number | undefined;
   onClose: () => void;
 }) => {
   const scrollableRef = useRef<HTMLDivElement | null>(null);
@@ -23,9 +22,6 @@ export const DetailsModal = ({
     scrollableRef.current?.scrollBy({ top: 200, behavior: "smooth" });
   };
 
-  console.log("movie id- ", movie?.id);
-
-  console.log("show- ", show);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -50,8 +46,8 @@ export const DetailsModal = ({
         ref={scrollableRef}
         className="flex flex-col p-4 sm:p-6 w-full h-screen scrollbar-hide overflow-y-auto"
       >
-        {movie && <MovieDetails movie={movie as Required<Movie>} />}
-        {show && <ShowDetails show={show} />}
+        {movieId && <MovieDetails id={movieId} />}
+        {showId && <ShowDetails id={showId} />}
       </div>
     </motion.div>
   );

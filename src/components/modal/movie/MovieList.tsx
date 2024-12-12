@@ -64,11 +64,11 @@ const MovieList = (props: MovieCategoryProps) => {
             transition={{ duration: 0.5 }}
           >
             <MovieCard
-              title={movie.title}
+              title={movie.title ?? ""}
               release_date={movie.release_date}
               poster_path={movie.poster_path ?? ""}
               vote_average={movie.vote_average ?? 0}
-              id={0}
+              id={movie.id}
               name={""}
               first_air_date={""}
               onClick={() => props.onCardClick(movie)}

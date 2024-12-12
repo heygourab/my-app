@@ -2,6 +2,7 @@ import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { useFetchShowRecommendation } from "@/hooks/useFetchShowRecommendation";
 import { Movie, ShowDetails } from "types";
 import MovieList from "../movie/MovieList";
+import { useNavigate } from "react-router-dom";
 
 export const RecommendedShow = ({
   showId,
@@ -12,6 +13,11 @@ export const RecommendedShow = ({
   showLanguage: ShowDetails["original_language"];
   className?: string;
 }) => {
+  const navigate = useNavigate();
+
+  const goToRecommendation = (movie: Movie) => {
+    navigate(`/recommendation/show/${movie.id}`, { state: { movie } });
+  };
   const { recommendedShows, loading, error } = useFetchShowRecommendation({
     showId: showId,
     showLanguage: showLanguage,
@@ -35,9 +41,7 @@ export const RecommendedShow = ({
           name={""}
           movies={recommendedShows}
           isSubtitleShow={false}
-          onCardClick={function (movie: Movie): void {
-            throw new Error("Function not implemented.");
-          }}
+          onCardClick={(show) => goToRecommendation(show)}
         />
       </section>
     )

@@ -1,4 +1,3 @@
-import { Movie } from "types";
 import { PlayTrailer } from "@/components/PlayTrailer";
 import { useFetchMovieDetails } from "@/hooks/useFetchMovieDetails";
 import { LoadingIndicator } from "@/components/LoadingIndicator";
@@ -8,8 +7,8 @@ import { RecommendedMovies } from "./RecommenedMovies";
 import { SimilarMovies } from "./Similar";
 import { CastList } from "@/components/CastList";
 
-export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
-  const { movieDetails, loading, error } = useFetchMovieDetails(movie.id);
+export const MovieDetails = ({ id }: { id: number }) => {
+  const { movieDetails, loading, error } = useFetchMovieDetails(id);
 
   if (loading) {
     return <LoadingIndicator title="Loading movie details..." />;
@@ -40,7 +39,7 @@ export const MovieDetails = ({ movie }: { movie: Required<Movie> }) => {
           />
           {movieDetails.id && (
             <MovieReviews
-              id={movie.id}
+              id={id}
               className="sm:pl-4 mt-8"
               title={"Movie Reviews"}
             />

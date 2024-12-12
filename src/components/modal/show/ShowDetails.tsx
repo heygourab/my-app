@@ -2,13 +2,12 @@ import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { PlayTrailer } from "@/components/PlayTrailer";
 import { useFetchShowDetails } from "@/hooks/useFetchShowDetails";
 
-import { Show } from "types";
 import { ShowInfo } from "./ShowInfo";
 import { ShowReviews } from "./ShowReviews";
 import { RecommendedShow } from "./RecomenedShow";
 
-export const ShowDetails = ({ show }: { show: Show }) => {
-  const { showDetails, loading, error } = useFetchShowDetails(show.id);
+export const ShowDetails = ({ id }: { id: number }) => {
+  const { showDetails, loading, error } = useFetchShowDetails(id);
 
   if (loading) {
     return <LoadingIndicator title="Loading show details..." />;
@@ -40,7 +39,7 @@ export const ShowDetails = ({ show }: { show: Show }) => {
           />
           {showDetails.id && (
             <ShowReviews
-              id={show.id}
+              id={id}
               className="sm:pl-4 mt-8"
               title={"Show Reviews"}
             />

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { genres } from "@/data/movieGenereData.json";
 import { languages } from "@/data/languageData.json";
 
+
 export const useHomePageHandlers = (state: {
   setSelectedGenreId: (id: number) => void;
   setSelectedMovieLanguage: (language: SpokenLanguage) => void;
@@ -12,6 +13,7 @@ export const useHomePageHandlers = (state: {
   setSelectedTvShow: (tvShow: Show | null) => void;
   selectedGenreId: number;
 }) => {
+  //! set the state object
   const {
     setSelectedGenreId,
     setSelectedMovieLanguage,
@@ -19,6 +21,7 @@ export const useHomePageHandlers = (state: {
     setSelectedMovie,
     setIsModalOpen,
     setSelectedTvShow,
+    
   } = state;
 
   const selectedGenre = useMemo(
@@ -43,37 +46,64 @@ export const useHomePageHandlers = (state: {
     setSearchQuery(e.target.value);
   };
 
-  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (state.searchQuery.trim()) {
-      console.log("Search submitted:", state.searchQuery);
-    }
-  };
+      // hit the backend api then add returned data to the state
+      // ! todo --- add the backend api
+      // const body = {
+      //   search: state.searchQuery,
+      // };
 
-  const handleMovieClick = (movie: Movie) => {
-    setSelectedMovie(movie);
-    setIsModalOpen(true);
-  };
+      //   try {
+      //     // hit the backend api for result
+      //     const response = await fetch("http://localhost:3001/search", {
+      //       method: "POST",
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify(body),
+      //     });
 
-  const handleTvShowClick = (tvShow: Show) => {
-    setSelectedTvShow(tvShow);
-    setIsModalOpen(true);
-  };
+      //     if (!response.ok) {
+      //       console.error("not ok");
+      //       return;
+      //     }
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedMovie(null);
-    setSelectedTvShow(null);
-  };
+      //     const data = await response.json();
+      //     console.log(data);
+      
+      //   } catch (error) {
+      //     console.error("Error fetching data:", error);
+      //   }
+      // }
+    };
 
-  return {
-    selectedGenre,
-    handleGenreClick,
-    handleLanClick,
-    handleChange,
-    handleSearchSubmit,
-    handleMovieClick,
-    handleTvShowClick,
-    handleCloseModal,
-  };
-};
+    const handleMovieClick = (movie: Movie) => {
+      setSelectedMovie(movie);
+      setIsModalOpen(true);
+    };
+
+    const handleTvShowClick = (tvShow: Show) => {
+      setSelectedTvShow(tvShow);
+      setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+      setSelectedMovie(null);
+      setSelectedTvShow(null);
+    };
+
+    return {
+      selectedGenre,
+      handleGenreClick,
+      handleLanClick,
+      handleChange,
+      handleSearchSubmit,
+      handleMovieClick,
+      handleTvShowClick,
+      handleCloseModal,
+    };
+  }
+}
