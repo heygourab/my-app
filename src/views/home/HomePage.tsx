@@ -33,6 +33,7 @@ export const HomePage: React.FC = () => {
     loading: newMoviesLoading,
     error: newMoviesError,
   } = useLatestMovies();
+
   const { shows, loading: tvLoading } = useTrendingTVShows();
 
   const {
@@ -41,17 +42,9 @@ export const HomePage: React.FC = () => {
     error: moviesByLanguageError,
   } = useFilteredMoviesByLanguage(state.selectedMovieLanguage?.iso_639_1);
 
-  if (moviesError || newMoviesError) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-slate-950 text-red-500">
-        {moviesError || newMoviesError}
-      </div>
-    );
-  }
-
   return (
-    <AuroraBackground className="bg-slate-950 h-screen overflow-y-auto antialiased">
-      <div className="relative px-6 flex flex-col min-h-full w-full items-start">
+    <AuroraBackground className="bg-slate-950 flex flex-col items-center h-screen overflow-y-auto antialiased">
+      <div className="relative px-6 flex flex-col min-h-full w-full items-center">
         <div className="w-full sticky pt-4 top-0 z-10">
           <PlaceholdersAndVanishInput
             placeholders={placeHolderTexts}
@@ -59,10 +52,8 @@ export const HomePage: React.FC = () => {
             onSubmit={handlers.handleSearchSubmit}
           />
         </div>
-
         {/* Hero Section */}
         <Hero movies={newMovies} onClick={handlers.handleMovieClick} />
-
         {/* Trending Section */}
         <TendingSection
           genres={genres}
@@ -73,24 +64,22 @@ export const HomePage: React.FC = () => {
           selectedGenre={handlers.selectedGenre}
           onCardClick={handlers.handleMovieClick}
         />
-
         {/* TV Show Section */}
         <TvShowSection
           shows={shows}
           loading={tvLoading}
           onCardClick={handlers.handleTvShowClick}
         />
-
         {/* Filter by Language Section */}
         <FilterByLanMovie
           languages={languages}
           filterMoviesByLanguage={filteredMovies}
-          selectedMovieLanguage={state.selectedMovieLanguage.iso_639_1}
+          selectedMovieLanguage={state.selectedMovieLanguage?.iso_639_1 || ""}
           handleLanClick={handlers.handleLanClick}
           loading={moviesByLanguageLoading}
-          selectedLanguage={state.selectedMovieLanguage.iso_639_1}
+          selectedLanguage={state.selectedMovieLanguage?.iso_639_1 || ""}
           error={moviesByLanguageError}
-          originalLanguage={state.selectedMovieLanguage.name}
+          originalLanguage={state.selectedMovieLanguage?.name || ""}
           onCardClick={handlers.handleMovieClick}
         />
       </div>
@@ -103,6 +92,7 @@ export const HomePage: React.FC = () => {
           onClose={handlers.handleCloseModal}
         />
       )}
+      {/* Search Result Modal */}
     </AuroraBackground>
   );
 };

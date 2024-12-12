@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Movie} from "types";
+import { Movie } from "types";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";

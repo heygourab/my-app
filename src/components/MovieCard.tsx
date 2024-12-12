@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { memo } from "react";
-import { Movie, Show } from "types";
 
 export const MovieCard = memo(
   ({
@@ -12,7 +11,16 @@ export const MovieCard = memo(
     name,
     className = "",
     onClick,
-  }: Movie & { className?: string; onClick?: () => void } & Show) => {
+  }: {
+    className?: string;
+    poster_path: string;
+    title: string;
+    vote_average: number;
+    release_date?: string;
+    first_air_date?: string;
+    name?: string;
+    onClick?: () => void;
+  }) => {
     const imgSrc = `https://image.tmdb.org/t/p/w500/${poster_path}`;
     const year = new Date(
       (release_date as string) ?? first_air_date
@@ -22,7 +30,7 @@ export const MovieCard = memo(
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`w-48 flex-shrink-0 inline-block mr-6 mt-6 overflow-hidden ${className}`}
+        className={`w-48 flex-shrink-0 inline-block mr-6 mt-4 overflow-hidden ${className}`}
         onClick={onClick}
         role="button"
         aria-label={`View details of ${name || title}`}

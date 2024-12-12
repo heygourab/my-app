@@ -2,18 +2,23 @@ import { Movie } from "types";
 
 import { useFetchRecommendedMovies } from "@/hooks/useFetchMovieRecommendatio";
 import MovieList from "./MovieList";
+import { useNavigate } from "react-router-dom";
 
 export const RecommendedMovies = ({
   movieId,
   movieLanguage,
   className,
-  onCardClick,
 }: {
   movieId: Movie["id"];
   movieLanguage: Movie["original_language"];
   className: string;
-  onCardClick: () => void;
 }) => {
+  const navigate = useNavigate();
+
+  const goToRecommendation = (movie: Movie) => {
+    navigate(`/recommendation/movie/${movie.id}`, { state: { movie } });
+  };
+
   const { recommendedMovies, loading, error } = useFetchRecommendedMovies({
     movieId: movieId,
     movieLanguage: movieLanguage,
@@ -37,7 +42,7 @@ export const RecommendedMovies = ({
           name={""}
           movies={recommendedMovies}
           isSubtitleShow={false}
-          onCardClick={onCardClick}
+          onCardClick={(movie) => goToRecommendation(movie)}
         />
       </section>
     )
