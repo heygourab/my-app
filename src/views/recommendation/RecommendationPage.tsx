@@ -1,10 +1,9 @@
-import { LoadingIndicator } from "@/components/LoadingIndicator";
-import { PlayTrailer } from "@/components/PlayTrailer";
+
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { placeHolderTexts } from "@/constants";
 import { useFetchMovieDetails } from "@/hooks/useFetchMovieDetails";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+
 
 import { Navigate, useLocation, useParams } from "react-router-dom";
 

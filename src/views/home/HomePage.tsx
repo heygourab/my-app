@@ -17,6 +17,7 @@ import { placeHolderTexts } from "@/constants";
 
 import { languages } from "@/data/languageData.json";
 import { genres } from "@/data/movieGenereData.json";
+import { SearchModal } from "@/components/modal/SearchModal";
 
 export const HomePage: React.FC = () => {
   const state = useHomePageState();
@@ -34,7 +35,7 @@ export const HomePage: React.FC = () => {
     error: newMoviesError,
   } = useLatestMovies();
 
-  const { shows, loading: tvLoading } = useTrendingTVShows();
+  const { shows, loading } = useTrendingTVShows();
 
   const {
     filteredMovies,
@@ -67,7 +68,7 @@ export const HomePage: React.FC = () => {
         {/* TV Show Section */}
         <TvShowSection
           shows={shows}
-          loading={tvLoading}
+          loading={loading}
           onCardClick={handlers.handleTvShowClick}
         />
         {/* Filter by Language Section */}
@@ -93,6 +94,7 @@ export const HomePage: React.FC = () => {
         />
       )}
       {/* Search Result Modal */}
+      <SearchModal onClick={() => {}} />
     </AuroraBackground>
   );
 };
