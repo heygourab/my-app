@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { genres } from "@/data/movieGenereData.json";
 import { languages } from "@/data/languageData.json";
 
-
 export const useHomePageHandlers = (state: {
   setSelectedGenreId: (id: number) => void;
   setSelectedMovieLanguage: (language: SpokenLanguage) => void;
@@ -21,7 +20,6 @@ export const useHomePageHandlers = (state: {
     setSelectedMovie,
     setIsModalOpen,
     setSelectedTvShow,
-    
   } = state;
 
   const selectedGenre = useMemo(
@@ -54,7 +52,6 @@ export const useHomePageHandlers = (state: {
       // const body = {
       //   search: state.searchQuery,
       // };
-
       //   try {
       //     // hit the backend api for result
       //     const response = await fetch("http://localhost:3001/search", {
@@ -64,46 +61,42 @@ export const useHomePageHandlers = (state: {
       //       },
       //       body: JSON.stringify(body),
       //     });
-
       //     if (!response.ok) {
       //       console.error("not ok");
       //       return;
       //     }
-
       //     const data = await response.json();
       //     console.log(data);
-      
       //   } catch (error) {
       //     console.error("Error fetching data:", error);
       //   }
       // }
-    };
+    }
+  };
+  const handleMovieClick = (movie: Movie) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
 
-    const handleMovieClick = (movie: Movie) => {
-      setSelectedMovie(movie);
-      setIsModalOpen(true);
-    };
+  const handleTvShowClick = (tvShow: Show) => {
+    setSelectedTvShow(tvShow);
+    setIsModalOpen(true);
+  };
 
-    const handleTvShowClick = (tvShow: Show) => {
-      setSelectedTvShow(tvShow);
-      setIsModalOpen(true);
-    };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedMovie(null);
+    setSelectedTvShow(null);
+  };
 
-    const handleCloseModal = () => {
-      setIsModalOpen(false);
-      setSelectedMovie(null);
-      setSelectedTvShow(null);
-    };
-
-    return {
-      selectedGenre,
-      handleGenreClick,
-      handleLanClick,
-      handleChange,
-      handleSearchSubmit,
-      handleMovieClick,
-      handleTvShowClick,
-      handleCloseModal,
-    };
-  }
-}
+  return {
+    selectedGenre,
+    handleGenreClick,
+    handleLanClick,
+    handleChange,
+    handleSearchSubmit,
+    handleMovieClick,
+    handleTvShowClick,
+    handleCloseModal,
+  };
+};
