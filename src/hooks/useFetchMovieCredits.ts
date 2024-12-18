@@ -31,7 +31,7 @@ export const useFetchMovieCredits = ({
         throw new Error(`Failed to fetch movie credits: ${response.status}`);
       }
       const data = await response.json();
-      setCasts(data.cast); // Assume data.cast is an array of Cast
+      setCasts(data.cast);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         setError(

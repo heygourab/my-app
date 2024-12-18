@@ -20,6 +20,8 @@ export const useHomePageState = () => {
       iso_639_1: "en",
       name: "English",
     });
+  
+  
 
   return {
     selectedGenreId,

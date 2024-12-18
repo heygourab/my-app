@@ -19,6 +19,7 @@ export const TvShowSection = ({
       {!loading ? (
         shows.map((show) => (
           <MovieCard
+            title={""}
             key={show.id}
             {...show}
             onClick={() => onCardClick(show)}

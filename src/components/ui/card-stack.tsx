@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Review } from "types";
+import  { Review } from "types";
 
 export const CardStack = ({
   items,

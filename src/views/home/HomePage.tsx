@@ -1,5 +1,5 @@
 import React from "react";
-import { useHomePageState } from "@/handlers/useHomeState";
+import { useHomePageState } from "@/state/useHomeState";
 import { useHomePageHandlers } from "@/handlers/useHomePageHandlers";
 import { useMovies } from "@/hooks/useMovie";
 import { useLatestMovies } from "@/hooks/useLatestMovies";
@@ -17,6 +17,7 @@ import { placeHolderTexts } from "@/constants";
 
 import { languages } from "@/data/languageData.json";
 import { genres } from "@/data/movieGenereData.json";
+import { useSearch } from "@/hooks/useSearch";
 import { SearchModal } from "@/components/modal/SearchModal";
 
 export const HomePage: React.FC = () => {
@@ -43,14 +44,27 @@ export const HomePage: React.FC = () => {
     error: moviesByLanguageError,
   } = useFilteredMoviesByLanguage(state.selectedMovieLanguage?.iso_639_1);
 
+  const [searchQuery, setSearchQuery] = React.useState<string>("");
+  const {
+    result,
+    loading: searchLoading,
+    error: searchError,
+  } = useSearch(searchQuery);
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <AuroraBackground className="bg-slate-950 flex flex-col items-center h-screen overflow-y-auto antialiased">
       <div className="relative px-6 flex flex-col min-h-full w-full items-center">
         <div className="w-full sticky pt-4 top-0 z-10">
           <PlaceholdersAndVanishInput
             placeholders={placeHolderTexts}
-            onChange={handlers.handleChange}
-            onSubmit={handlers.handleSearchSubmit}
+            onChange={handleChange}
+            onSubmit={function (e: React.FormEvent<HTMLFormElement>): void {
+              throw new Error("Function not implemented.");
+            }}
           />
         </div>
         {/* Hero Section */}
@@ -94,7 +108,7 @@ export const HomePage: React.FC = () => {
         />
       )}
       {/* Search Result Modal */}
-      {/* <SearchModal title={title} onClick={() => {}} /> */}
+      {result && <SearchModal title={result.title} />}
     </AuroraBackground>
   );
 };

@@ -46,33 +46,8 @@ export const useHomePageHandlers = (state: {
 
   const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (state.searchQuery.trim()) {
-      // hit the backend api then add returned data to the state
-      // ! todo --- add the backend api
-      // const body = {
-      //   search: state.searchQuery,
-      // };
-      //   try {
-      //     // hit the backend api for result
-      //     const response = await fetch("http://localhost:3001/search", {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //       },
-      //       body: JSON.stringify(body),
-      //     });
-      //     if (!response.ok) {
-      //       console.error("not ok");
-      //       return;
-      //     }
-      //     const data = await response.json();
-      //     console.log(data);
-      //   } catch (error) {
-      //     console.error("Error fetching data:", error);
-      //   }
-      // }
-    }
   };
+
   const handleMovieClick = (movie: Movie) => {
     setSelectedMovie(movie);
     setIsModalOpen(true);
